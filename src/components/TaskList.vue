@@ -1,23 +1,24 @@
 <template>
-  <div class="flex flex-col" style="min-height: 210px">
-    <header v-if="dateOfMonth" class="flex justify-between items-center border-b-2 border-black pb-1 text-xl">
+  <div class="flex flex-col bg-gray-50 border border-gray-200 rounded" style="min-height: 210px">
+    <header v-if="dateOfMonth" class="flex justify-between items-center px-2 py-1 border-b-1 border-gray-300 text-xl">
       <span class="font-bold">{{ dateOfMonth }}.{{ month }}</span>
-      <span class="text-gray-400">{{ dateOfWeek }}</span>
+      <span class="text-gray-500">{{ dateOfWeek }}</span>
     </header>
-    <div class="todo-body flex-1">
+    <div class="todo-body flex-1 px-2">
       <TaskItem
         :task="task"
         v-for="task in tasks"
         :key="task.id"
-        class="border-b hover:border-gray-700"
+        class="my-2 bg-white shadow rounded"
         style="height: 42px"
       />
-      <div class="border-b hover:border-gray-700">
+      <div class="my-2">
         <input
           v-model="taskName"
           type="text"
-          class="px-2 w-full outline-none focus:shadow-lg transform focus:scale-110"
+          class="px-2 w-full outline-none shadow rounded focus:shadow-lg"
           style="height: 42px"
+          placeholder="Add task"
           @keydown.enter="createTask"
         />
       </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="font-inter p-8">
+  <div class="font-inter px-4 py-8 min-h-screen">
     <header class="mb-12 flex justify-between items-center">
       <h1 class="text-3xl font-bold">{{ currentMonth }}</h1>
       <div class="space-x-1">
@@ -63,12 +63,13 @@
     </header>
 
     <main>
-      <div class="lg:grid grid-cols-6 gap-6 mb-8" style="min-height: 480px">
+      <div class="lg:grid grid-cols-6 gap-4 mb-8" style="min-height: 480px">
         <TaskList
           v-for="(weekday, index) in weekdays"
           :key="index"
           :date="weekday"
           :listId="format(weekday, 'ddMMyyyy')"
+          class="mb-4 lg:mb-0"
         />
 
         <div class="todo-group">
@@ -78,10 +79,10 @@
       </div>
 
       <div>
-        <div class="flex justify-between items-center text-xl">
+        <div class="flex justify-between items-center mb-2 text-xl">
           <span class="font-bold">Someday</span>
         </div>
-        <div class="lg:grid grid-cols-3 gap-6">
+        <div class="lg:grid grid-cols-3 gap-4">
           <TaskList listId="someday-1"/>
           <TaskList listId="someday-2"/>
           <TaskList listId="someday-3"/>
@@ -129,13 +130,9 @@ export default defineComponent({
 </script>
 
 <style>
-.todo-body {
-  background-image: repeating-linear-gradient(to bottom, #fff, #fff 41px, #ccc 42px);
-}
-
 .todo-group {
   display: grid;
   grid-template-rows: minmax(210px, max-content) minmax(210px, auto);
-  grid-row-gap: 42px;
+  grid-row-gap: 1rem;
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="flex justify-between box-content" style="height: 22px; padding-top: 10px; padding-bottom: 10px;">
+    <div class="flex justify-between box-content" style="height: 22px; padding: 10px;">
       <span 
-        class="truncate block rounded-full px-2" 
+        class="truncate block" 
         :style="styles"
       >
         {{ task.content }}
