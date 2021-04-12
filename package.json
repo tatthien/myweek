@@ -9,7 +9,8 @@
   "dependencies": {
     "date-fns": "^2.19.0",
     "pinia": "^2.0.0-alpha.10",
-    "vue": "^3.0.5"
+    "vue": "^3.0.5",
+    "vuedraggable": "^4.0.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.1.5",

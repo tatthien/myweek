@@ -35,6 +35,10 @@ export const useTasks = defineStore({
       this.tasks.push(task)
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.tasks))
     },
+    update(updatedTask: Task) {
+      this.tasks.map(task => task.id === updatedTask.id ? updatedTask : task)
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.tasks))
+    }
   },
 })
 

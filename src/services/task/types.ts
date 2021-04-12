@@ -10,4 +10,5 @@ export interface Task {
   color: string
   status: TaskStatus,
   listId: string,
+  order: number,
 }
