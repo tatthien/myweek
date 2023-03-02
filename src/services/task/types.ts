@@ -8,7 +8,7 @@ export interface Task {
   content: string
   date: Date
   color: string
-  status: TaskStatus,
-  listId: string,
-  order: number,
+  status: TaskStatus
+  listId: string
+  order: number
 }

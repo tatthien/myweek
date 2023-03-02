@@ -5,7 +5,7 @@ import { defineStore } from 'pinia'
 const STORAGE_KEY = 'bullet_journal'
 
 interface TaskState {
-  tasks: Task[],
+  tasks: Task[]
 }
 
 export const useTasks = defineStore({
@@ -36,9 +36,9 @@ export const useTasks = defineStore({
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.tasks))
     },
     update(updatedTask: Task) {
-      this.tasks.map(task => task.id === updatedTask.id ? updatedTask : task)
+      this.tasks.map(task => (task.id === updatedTask.id ? updatedTask : task))
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.tasks))
-    }
+    },
   },
 })
 
