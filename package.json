@@ -3,28 +3,41 @@
 	"version": "0.0.0",
 	"scripts": {
 		"dev": "vite",
-		"build": "vue-tsc --noEmit && vite build",
+		"build": "vite build",
+		"tsc-check": "vue-tsc --noEmit",
 		"serve": "vite preview",
-		"format": "prettier --write **/*.{js,ts,vue,md,yaml}",
-		"lint": "eslint ."
+		"format": "prettier --write '**/*.{js,ts,vue,md,yaml}'",
+		"lint": "eslint . --ext .js,.ts,.vue"
 	},
 	"dependencies": {
+		"@formkit/themes": "1.0.0-beta.15",
+		"@formkit/vue": "1.0.0-beta.15",
 		"@heroicons/vue": "^2.0.16",
+		"@supabase/supabase-js": "^2.10.0",
 		"date-fns": "^2.29.3",
 		"pinia": "^2.0.32",
 		"vue": "^3.2.47",
+		"vue-router": "4",
 		"vuedraggable": "^4.1.0"
 	},
 	"devDependencies": {
 		"@types/node": "^18.14.4",
+		"@typescript-eslint/eslint-plugin": "^5.54.0",
+		"@typescript-eslint/parser": "^5.54.0",
 		"@vitejs/plugin-vue": "^1.10.2",
 		"@vue/compiler-sfc": "^3.2.47",
+		"autoprefixer": "^10.4.13",
 		"eslint": "^8.35.0",
+		"eslint-import-resolver-typescript": "^3.5.3",
+		"eslint-plugin-import": "^2.27.5",
 		"eslint-plugin-vue": "^9.9.0",
+		"postcss": "^8.4.21",
 		"sass": "^1.58.3",
+		"tailwindcss": "^3.2.7",
 		"typescript": "^4.9.5",
 		"vite": "^2.9.15",
 		"vite-plugin-windicss": "^0.9.11",
+		"vue-eslint-parser": "^9.1.0",
 		"vue-tsc": "^0.0.8"
 	}
 }
