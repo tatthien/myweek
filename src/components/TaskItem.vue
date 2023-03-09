@@ -1,42 +1,28 @@
 <template>
-  <div
-    class="px-2 py-2 text-sm bg-white rounded-md border border-gray-150 cursor-pointer select-none hover:bg-gray-50"
-    tabindex="0"
-    @click="openModal = true"
-    @keypress.enter.prevent="openModal = true"
-  >
-    <div
-      v-if="!editing"
-      class="flex items-center box-content"
-    >
-      <CheckCircleIcon
-        v-if="item.status === 'done'"
-        class="w-4 h-4 mr-2 text-gray-400 shrink-0"
-      />
-      <span
-        class="block break-all"
-        :style="styles"
-        :class="[item.status === 'done' ? 'text-gray-400' : '']"
-      >
-        {{ title.trim() || 'Untitled' }}
-      </span>
-    </div>
-    <textarea
-      v-else
-      v-model="content"
-      v-auto-resize
-      v-focus
-      class="block w-full resize-none outline-none h-[22px] bg-transparent"
-      placeholder="Type task name..."
-    />
-    <Teleport to="body">
-      <ModalEditTask
-        :item="item"
-        :open="openModal"
-        @close="openModal = false"
-      />
-    </Teleport>
-  </div>
+	<div
+		class="px-2 py-2 text-sm bg-white rounded-md border border-gray-150 cursor-pointer select-none hover:bg-gray-50"
+		tabindex="0"
+		@click="openModal = true"
+		@keypress.enter.prevent="openModal = true"
+	>
+		<div v-if="!editing" class="flex items-center box-content">
+			<CheckCircleIcon v-if="item.status === 'done'" class="w-4 h-4 mr-2 text-gray-400 shrink-0" />
+			<span class="block break-all" :style="styles" :class="[item.status === 'done' ? 'text-gray-400' : '']">
+				{{ title.trim() || 'Untitled' }}
+			</span>
+		</div>
+		<textarea
+			v-else
+			v-model="content"
+			v-auto-resize
+			v-focus
+			class="block w-full resize-none outline-none h-[22px] bg-transparent"
+			placeholder="Type task name..."
+		/>
+		<Teleport to="body">
+			<ModalEditTask :item="item" :open="openModal" @close="openModal = false" />
+		</Teleport>
+	</div>
 </template>
 
 <script lang="ts" setup>

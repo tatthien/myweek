@@ -19,8 +19,8 @@ supabase.auth.onAuthStateChange((event, session) => {
 </script>
 
 <template>
-  <router-view />
-  <ToastList class="toast-list" />
+	<router-view />
+	<ToastList class="toast-list" />
 </template>
 
 <style>

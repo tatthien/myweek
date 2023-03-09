@@ -45,24 +45,21 @@ function click() {
 }
 </script>
 <template>
-  <button
-    :class="[
-      colorClasses,
-      sizeClasses,
-      full ? 'w-full' : 'w-auto',
-      'inline-flex items-center justify-center font-medium rounded-md px-4 transition',
-    ]"
-    :disabled="isDisabled"
-    @click="click"
-  >
-    <slot v-if="!loading" />
-    <div
-      v-else
-      class="flex items-center gap-1"
-    >
-      <span class="w-2 h-2 rounded animate-pulse bg-white" />
-      <span class="w-2 h-2 rounded animate-pulse bg-white" />
-      <span class="w-2 h-2 rounded animate-pulse bg-white" />
-    </div>
-  </button>
+	<button
+		:class="[
+			colorClasses,
+			sizeClasses,
+			full ? 'w-full' : 'w-auto',
+			'inline-flex items-center justify-center font-medium rounded-md px-4 transition',
+		]"
+		:disabled="isDisabled"
+		@click="click"
+	>
+		<slot v-if="!loading" />
+		<div v-else class="flex items-center gap-1">
+			<span class="w-2 h-2 rounded animate-pulse bg-white" />
+			<span class="w-2 h-2 rounded animate-pulse bg-white" />
+			<span class="w-2 h-2 rounded animate-pulse bg-white" />
+		</div>
+	</button>
 </template>
