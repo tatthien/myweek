@@ -50,6 +50,11 @@ export const useTasks = defineStore({
 			const { error } = await supabase.from('tasks').upsert(tasks)
 			if (error) throw error
 		},
+		async delete(id: string) {
+			const { error } = await supabase.from('tasks').delete().eq('id', id)
+			if (error) throw error
+			this.tasks = this.tasks.filter(t => t.id !== id)
+		},
 	},
 })
 

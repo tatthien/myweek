@@ -29,7 +29,7 @@ async function signOut() {
 				</button>
 			</div>
 		</div>
-		<div v-click-outside="() => (showDropdown = false)" class="relative">
+		<div v-click-outside="() => (showDropdown = false)" class="relative z-10">
 			<button class="hover:bg-gray-100 px-2 py-1 rounded-md transition" @click="showDropdown = !showDropdown">
 				<span class="text-gray-400">Hi</span> <span class="font-medium">{{ user.firstName }}</span>
 			</button>

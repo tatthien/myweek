@@ -13,7 +13,6 @@ export default {
 		triggerEvent = () => {
 			binding.value()
 		}
-
 		el.addEventListener('click', stopPropation)
 		document.addEventListener('click', triggerEvent)
 	},
