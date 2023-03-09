@@ -2,7 +2,7 @@
 import { format } from 'date-fns'
 import { computed, ref } from 'vue'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
-import { firstDateOfWeek, goToNextWeek, goToPrevWeek } from '@/composables/date'
+import { firstDateOfWeek, goToNextWeek, goToPrevWeek, jumpToCurrentWeek } from '@/composables/date'
 import { supabase } from '@/composables/supabase'
 import { useUser } from '@/stores/user'
 
@@ -18,7 +18,7 @@ async function signOut() {
 	<header class="flex items-center justify-between">
 		<div class="flex items-center gap-6">
 			<h1 class="text-xl font-medium">
-				{{ currentMonth }}
+				<a href="#" @click="jumpToCurrentWeek">{{ currentMonth }}</a>
 			</h1>
 			<div class="flex items-center gap-2">
 				<button class="inline-flex rounded hover:bg-gray-200" @click="goToPrevWeek">
