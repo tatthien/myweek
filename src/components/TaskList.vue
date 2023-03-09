@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div :id="`list-${listId}`">
 		<div class="bg-gray-100 rounded-md px-2">
 			<header class="flex items-center gap-2 py-2">
 				<slot name="header">

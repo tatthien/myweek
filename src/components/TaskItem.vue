@@ -5,7 +5,7 @@
 		@click="openModal = true"
 		@keypress.enter.prevent="openModal = true"
 	>
-		<div v-if="!editing" class="relative">
+		<div class="relative">
 			<div class="flex items-center box-content">
 				<CheckCircleIcon v-if="item.status === 'done'" class="w-4 h-4 mr-2 text-gray-400 shrink-0" />
 				<span class="block" :style="styles" :class="[item.status === 'done' ? 'text-gray-400' : '']">
