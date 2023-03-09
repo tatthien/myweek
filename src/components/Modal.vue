@@ -37,7 +37,7 @@ function close() {
 
 <template>
 	<div class="fixed inset-0">
-		<div :class="[sizeClasses, 'absolute left-1/2 top-32 -translate-x-1/2 z-12 w-full px-4']">
+		<div :class="[sizeClasses, 'absolute left-1/2 top-32 -translate-x-1/2 z-10 w-full px-4']">
 			<div class="bg-white shadow-lg rounded-md">
 				<slot name="header">
 					<div class="p-6">

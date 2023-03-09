@@ -3,7 +3,7 @@
 		<div class="bg-gray-100 rounded-md px-2">
 			<header class="flex items-center gap-2 py-2">
 				<slot name="header">
-					<span class="font-semibold">{{ dateOfMonth }}</span>
+					<span class="font-semibold">{{ dateOfMonth }}.{{ month }}</span>
 					<span class="text-gray-400">{{ dateOfWeek }}</span>
 					<span v-if="isToday" class="w-2 h-2 bg-blue-400 rounded-full" />
 				</slot>
@@ -133,6 +133,7 @@ function onEndDragging() {
 
 const dateOfWeek = date.value ? computed(() => format(date.value, 'E')) : null
 const dateOfMonth = date.value ? computed(() => format(date.value, 'dd')) : null
+const month = date.value ? computed(() => format(date.value, 'MM')) : null
 const isToday = computed(() => (date.value ? format(date.value, 'ddMMyyyy') === format(new Date(), 'ddMMyyyy') : false))
 const dragOptions = {
 	animation: 200,

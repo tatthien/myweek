@@ -24,6 +24,12 @@
 							<EllipsisHorizontalIcon class="w-5 h-5 text-gray-400" />
 						</span>
 					</template>
+					<DropdownItem @click="openModal = true">
+						<div class="flex item-centers">
+							<PencilSquareIcon class="w-4 h-4 mr-2" />
+							Edit
+						</div>
+					</DropdownItem>
 					<DropdownItem @click="changeStatus(item.status === 'active' ? 'done' : 'active')">
 						<div class="flex items-center">
 							<CheckCircleOutlineIcon class="w-4 h-4 mr-2" />
