@@ -33,7 +33,7 @@
 					v-model="taskName"
 					v-focus
 					v-auto-resize
-					class="block h-[40px] outline-none border resize-none rounded-md w-full text-sm px-2 py-2 my-1.5 overflow-y-hidden"
+					class="block h-[40px] outline-none border resize-none rounded-md w-full md:text-sm px-2 py-2 my-1.5 overflow-y-hidden"
 					placeholder="Type task name..."
 					@keypress.enter.prevent="onCreateTask"
 					@blur="onBlurTaskInput"

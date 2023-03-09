@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="px-2 py-2 text-sm bg-white rounded-md border border-gray-150 cursor-pointer select-none hover:bg-gray-50"
+		class="px-2 py-2 md:text-sm bg-white rounded-md border border-gray-150 cursor-pointer select-none hover:bg-gray-50"
 		tabindex="0"
 		@click="openModal = true"
 		@keypress.enter.prevent="openModal = true"

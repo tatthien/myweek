@@ -58,7 +58,7 @@ export default {
 			},
 			'family:text': {
 				input:
-					'block outline-none border border-gray-300 rounded-md px-2 h-[36px] w-full transition focus:border-gray-400',
+					'block md:text-sm outline-none border border-gray-300 rounded-md px-2 h-[36px] w-full transition focus:border-gray-400',
 			},
 
 			// Specific styles apply only to a given input type

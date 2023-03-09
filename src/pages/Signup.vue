@@ -33,7 +33,7 @@ async function onSubmit() {
 }
 </script>
 <template>
-	<div class="flex items-center justify-center h-full bg-gray-50 text-sm">
+	<div class="flex items-center justify-center h-full bg-gray-50">
 		<div class="mx-4 w-[400px] bg-white border border-gray-200 rounded-lg p-6">
 			<div class="mb-4">
 				<h1 class="text-xl font-medium">Get started</h1>

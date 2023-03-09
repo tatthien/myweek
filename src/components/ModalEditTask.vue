@@ -54,7 +54,7 @@ async function onSubmit() {
 		<template #header>
 			<span />
 		</template>
-		<form class="text-sm" @submit.prevent="onSubmit">
+		<form @submit.prevent="onSubmit">
 			<div class="mb-4">
 				<textarea
 					v-model.trim="form.title"
@@ -67,11 +67,13 @@ async function onSubmit() {
 			</div>
 			<div>
 				<div class="grid grid-cols-[100px_1fr] items-center">
-					<label class="text-gray-600 inline-flex items-center gap-2"><PlayCircleIcon class="w-4 h-4" />Status</label>
+					<label class="md:text-sm text-gray-600 inline-flex items-center gap-2"
+						><PlayCircleIcon class="w-4 h-4" />Status</label
+					>
 					<div>
 						<select
 							v-model="form.status"
-							class="w-auto border border-gray-300 rounded-md px-2 h-[32px] outline-none focus:border-gray-400 transition"
+							class="md:text-sm w-auto border border-gray-300 rounded-md px-2 h-[32px] outline-none focus:border-gray-400 transition"
 						>
 							<option value="active">Active</option>
 							<option value="done">Done</option>
@@ -82,7 +84,7 @@ async function onSubmit() {
 					<textarea
 						v-model.trim="form.description"
 						v-auto-resize="80"
-						class="px-2 py-2 overflow-y-hidden resize-none border border-transparent bg-gray-100 focus:bg-white focus:border-gray-400 transition rounded-md w-full outline-none"
+						class="md:text-sm px-2 py-2 overflow-y-hidden resize-none border border-transparent bg-gray-100 focus:bg-white focus:border-gray-400 transition rounded-md w-full outline-none"
 						placeholder="Add a more detailed description..."
 					/>
 				</div>

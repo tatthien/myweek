@@ -25,7 +25,7 @@ async function onSubmit() {
 }
 </script>
 <template>
-	<div class="flex items-center justify-center h-full bg-gray-50 text-sm">
+	<div class="flex items-center justify-center h-full bg-gray-50">
 		<div class="mx-4 w-[400px] bg-white border border-gray-200 rounded-lg p-6">
 			<div class="mb-4">
 				<h1 class="text-xl font-medium">Welcome back</h1>
@@ -49,7 +49,7 @@ async function onSubmit() {
 					<WButton type="submit" full :loading="isSigningIn"> Sign in </WButton>
 				</div>
 			</FormKit>
-			<div class="text-center mt-8">
+			<div class="text-center mt-8 text-sm">
 				<span>Don't have an account? </span>
 				<router-link to="/sign-up" class="underline"> Sign up now </router-link>
 			</div>
