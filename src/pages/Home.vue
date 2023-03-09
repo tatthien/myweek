@@ -11,19 +11,15 @@ store.fetchTasks()
 <template>
 	<div class="font-inter h-full">
 		<AppHeader class="py-6 px-4" />
-		<main class="snap-x flex-1 min-h-[calc(100%-80px)] overflow-x-auto">
-			<div class="grid grid-cols-[repeat(6,minmax(300px,1fr))] pb-12">
+		<main class="snap-x flex-1 h-[calc(100%-80px)]">
+			<div class="grid grid-cols-[repeat(7,minmax(300px,350px))] min-h-full pb-12 overflow-auto">
 				<TaskList
 					v-for="(weekday, index) in weekdays"
 					:key="index"
 					:date="weekday"
 					:list-id="format(weekday, 'ddMMyyyy')"
-					:class="['snap-center', index === 0 ? 'ml-4 mr-1.5' : 'mx-1.5']"
+					class="snap-center first:ml-4 first:mr-1 last:mr-4 last:ml-1 mx-1"
 				/>
-				<div class="todo-group ml-1.5 mr-4 snap-center">
-					<TaskList :date="saturday" :list-id="format(saturday, 'ddMMyyyy')" />
-					<TaskList :date="sunday" :list-id="format(sunday, 'ddMMyyyy')" />
-				</div>
 			</div>
 		</main>
 	</div>
