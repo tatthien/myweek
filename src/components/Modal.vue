@@ -1,20 +1,33 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const props = withDefaults(
 	defineProps<{
 		title?: string
 		open?: boolean
+		size?: 'sm' | 'md' | 'lg'
 	}>(),
 	{
 		title: '',
 		open: false,
+		size: 'md',
 	}
 )
 
 const emit = defineEmits(['close'])
 
 const open = ref(props.open)
+
+const sizeClasses = computed(() => {
+	switch (props.size) {
+		case 'lg':
+			return 'md:w-[720px]'
+		case 'md':
+			return 'md:w-[620px]'
+		default:
+			return 'md:w-[520px]'
+	}
+})
 
 function close() {
 	open.value = false
@@ -24,7 +37,7 @@ function close() {
 
 <template>
 	<div class="fixed inset-0">
-		<div class="absolute left-1/2 top-32 -translate-x-1/2 z-10 w-full px-4 lg:w-[520px]">
+		<div :class="[sizeClasses, 'absolute left-1/2 top-32 -translate-x-1/2 z-10 w-full px-4']">
 			<div class="bg-white shadow-lg rounded-md">
 				<slot name="header">
 					<div class="p-6">
