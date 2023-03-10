@@ -1,14 +1,22 @@
 <script lang="ts" setup>
 import { format } from 'date-fns'
 import { computed, ref } from 'vue'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
+import { ChevronLeftIcon, ChevronRightIcon, Cog8ToothIcon, ArrowRightOnRectangleIcon } from '@heroicons/vue/24/outline'
 import { firstDateOfWeek, goToNextWeek, goToPrevWeek, jumpToCurrentWeek } from '@/composables/date'
 import { supabase } from '@/composables/supabase'
 import { useUser } from '@/stores/user'
+import ModalSettings from '@/components/ModalSettings.vue'
 
 const user = useUser()
 const currentMonth = computed(() => format(firstDateOfWeek.value, 'MMM Y'))
 const showDropdown = ref(false)
+const openModal = ref(false)
+
+function openSettings() {
+	// @TODO: using Dropdown component
+	openModal.value = true
+	showDropdown.value = false
+}
 
 async function signOut() {
 	const { error } = await supabase.auth.signOut()
@@ -38,7 +46,7 @@ async function signOut() {
 					v-if="showDropdown"
 					class="absolute right-0 mt-2 py-2.5 w-[200px] bg-white border border-gray-150 shadow rounded-md"
 				>
-					<div class="px-4 py-2">
+					<div class="px-4 py-2 mb-2 border-b">
 						<h2 class="font-medium">
 							{{ user.fullName }}
 						</h2>
@@ -48,18 +56,25 @@ async function signOut() {
 					</div>
 					<a
 						href="#"
-						class="border-b px-4 py-2 flex text-gray-900 text-sm hover:bg-gray-100 transition"
-						@click="signOut"
-						>Account</a
+						class="px-4 py-2 flex items-center text-gray-900 text-sm hover:bg-gray-100 transition"
+						@click.prevent="openSettings"
 					>
-					<a href="#" class="px-4 py-2 flex text-gray-900 text-sm hover:bg-gray-100 transition" @click="signOut"
-						>Preferences</a
+						<Cog8ToothIcon class="w-5 h-5 stroke-1.5 mr-2" />
+						Settings</a
 					>
-					<a href="#" class="px-4 py-2 flex text-gray-900 text-sm hover:bg-gray-100 transition" @click="signOut"
-						>Log out</a
+					<a
+						href="#"
+						class="px-4 py-2 flex items-center text-gray-900 text-sm hover:bg-gray-100 transition"
+						@click.prevent="signOut"
+					>
+						<ArrowRightOnRectangleIcon class="w-5 h-5 stroke-1.5 mr-2" />
+						Log out</a
 					>
 				</nav>
 			</Transition>
 		</div>
+		<Teleport to="body">
+			<ModalSettings :open="openModal" @close="openModal = false" />
+		</Teleport>
 	</header>
 </template>

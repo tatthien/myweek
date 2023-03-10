@@ -20,7 +20,9 @@ supabase.auth.onAuthStateChange((event, session) => {
 
 <template>
 	<router-view />
-	<ToastList class="toast-list" />
+	<Teleport to="body">
+		<ToastList class="toast-list" />
+	</Teleport>
 </template>
 
 <style>

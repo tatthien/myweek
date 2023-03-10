@@ -32,7 +32,7 @@ const colorClasses = computed(() => {
 const sizeClasses = computed(() => {
 	switch (props.size) {
 		case 'sm':
-			return 'h-[32px]'
+			return 'h-[32px] text-sm'
 		default:
 			return 'h-[40px]'
 	}

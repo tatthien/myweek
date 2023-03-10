@@ -8,7 +8,7 @@ const store = useToastStore()
 <template>
 	<div
 		aria-live="assertive"
-		class="z-[80] pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6"
+		class="z-[120] pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6"
 	>
 		<div class="flex w-full flex-col items-center space-y-2 sm:items-end">
 			<TransitionGroup

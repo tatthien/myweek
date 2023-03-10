@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { User } from '@/types'
+import { supabase } from '@/composables/supabase'
 
 interface UserState {
 	user: User | null
@@ -35,6 +36,17 @@ export const useUser = defineStore({
 	actions: {
 		setUser(user: User) {
 			this.user = user
+		},
+		async update(user: Partial<User>) {
+			const { data, error } = await supabase.auth.updateUser(user)
+			if (error) throw error
+			if (data) {
+				this.setUser(data)
+			}
+		},
+		async updateMeta(metadata: Record<string, unknown>) {
+			const { error } = await supabase.auth.updateUser({ data: metadata })
+			if (error) throw error
 		},
 	},
 })
