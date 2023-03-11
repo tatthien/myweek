@@ -12,4 +12,5 @@ export interface Task {
 	list_id: string
 	order: number
 	user_id: string
+	date: string
 }

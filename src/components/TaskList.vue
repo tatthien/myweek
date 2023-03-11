@@ -75,7 +75,7 @@ const listId = toRef(props, 'listId')
 const tasks = computed({
 	get: () => {
 		return store.tasks
-			.filter(task => task.list_id === listId.value)
+			.filter(task => format(new Date(task.date), 'ddMMyyyy') === listId.value)
 			.sort((a, b) => {
 				return a.order - b.order
 			})
@@ -87,7 +87,7 @@ const tasks = computed({
 				task.order = index
 			})
 			await store.upsert(tasks)
-		} catch (error) {
+		} catch (error: any) {
 			addToast('error', error.message)
 		}
 	},

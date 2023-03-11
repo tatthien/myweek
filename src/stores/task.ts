@@ -6,7 +6,7 @@ interface TaskState {
 	tasks: Task[]
 }
 
-const defaultSelect = 'id,status,title,description,list_id,color,order,user_id'
+const defaultSelect = 'id,status,title,description,list_id,color,order,user_id,date'
 
 export const useTasks = defineStore({
 	id: 'tasks',
