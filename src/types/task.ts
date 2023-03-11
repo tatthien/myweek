@@ -12,4 +12,11 @@ export interface Task {
 	order: number
 	user_id: string
 	date: string
+	checklists: ChecklistItem[]
+}
+
+export interface ChecklistItem {
+	id: string
+	content: string
+	completed: boolean
 }

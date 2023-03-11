@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import Modal from '@/components/Modal.vue'
+import TaskChecklist from '@/components/TaskChecklist.vue'
 import { PlayCircleIcon, CheckCircleIcon, CalendarIcon } from '@heroicons/vue/24/solid'
 import { Task } from '@/types'
 import { ref, watch } from 'vue'
@@ -41,6 +42,7 @@ watch(
 	}
 )
 const isSaving = ref(false)
+
 async function onSubmit() {
 	isSaving.value = true
 	try {
@@ -103,6 +105,10 @@ async function onSubmit() {
 							class="md:text-sm px-2 py-2 overflow-y-hidden resize-none border border-transparent bg-gray-100 focus:bg-white focus:border-gray-400 transition rounded-md w-full outline-none"
 							placeholder="Add a more detailed description..."
 						/>
+					</div>
+					<div class="mt-6">
+						<h2 class="font-medium mb-4">Checklist</h2>
+						<TaskChecklist :item="item" />
 					</div>
 				</div>
 				<div class="flex items-center gap-2 mt-10">

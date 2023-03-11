@@ -1,4 +1,4 @@
-import { Task } from '@/types'
+import { ChecklistItem, Task } from '@/types'
 import { defineStore } from 'pinia'
 import { supabase } from '@/composables/supabase'
 
@@ -6,7 +6,8 @@ interface TaskState {
 	tasks: Task[]
 }
 
-const defaultSelect = 'id,status,title,description,color,order,user_id,date'
+const defaultSelect = `id,status,title,description,color,order,user_id,date,checklists(id,content,completed)`
+const defaultChecklistSelect = 'id,content,completed'
 
 export const useTasks = defineStore({
 	id: 'tasks',
@@ -51,6 +52,27 @@ export const useTasks = defineStore({
 			const { error } = await supabase.from('tasks').delete().eq('id', id)
 			if (error) throw error
 			this.tasks = this.tasks.filter(t => t.id !== id)
+		},
+		async addChecklistItem(task: Task, content: string) {
+			const { data, error } = await supabase
+				.from('checklists')
+				.insert({
+					content: content,
+					task_id: task.id,
+					user_id: task.user_id,
+					completed: false,
+				})
+				.select(defaultChecklistSelect)
+			if (error) throw error
+			return data
+		},
+		async updateChecklistItem(id: string, item: ChecklistItem) {
+			const { error } = await supabase.from('checklists').update(item).eq('id', id).select(defaultChecklistSelect)
+			if (error) throw error
+		},
+		async deleteChecklistItem(id: string) {
+			const { error } = await supabase.from('checklists').delete().eq('id', id)
+			if (error) throw error
 		},
 	},
 })

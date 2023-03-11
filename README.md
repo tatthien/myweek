@@ -9,8 +9,6 @@ Here is some screenshots of MyWeek. Visit [myweek.thien.dev](https://myweek.thie
 <img width="871" alt="Screenshot 2023-03-11 at 15 34 14" src="https://user-images.githubusercontent.com/72242664/224474209-e3fbd1a4-fd52-495a-8d3a-4f8ac26c47ae.png">
 <img width="871" alt="Screenshot 2023-03-11 at 15 33 32" src="https://user-images.githubusercontent.com/72242664/224474212-a5945ff5-cb2d-44c3-a2a1-18c205aedc88.png">
 
-
-
 ## Features
 
 - Active calendars
