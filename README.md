@@ -2,6 +2,13 @@
 
 MyWeek is a weekly planner & to-do list app. It aims to enhance your productivity, manage your stuff in a week calendar view.
 
+<img width="871" alt="Screenshot 2023-03-11 at 15 32 35" src="https://user-images.githubusercontent.com/72242664/224474214-845071e0-f948-4870-8076-3c784e426cf9.png">
+<img width="871" alt="Screenshot 2023-03-11 at 15 33 15" src="https://user-images.githubusercontent.com/72242664/224474213-6ea0e0d6-c6d4-4dfc-93ba-30900e5592c2.png">
+<img width="871" alt="Screenshot 2023-03-11 at 15 34 14" src="https://user-images.githubusercontent.com/72242664/224474209-e3fbd1a4-fd52-495a-8d3a-4f8ac26c47ae.png">
+<img width="871" alt="Screenshot 2023-03-11 at 15 33 32" src="https://user-images.githubusercontent.com/72242664/224474212-a5945ff5-cb2d-44c3-a2a1-18c205aedc88.png">
+
+
+
 ## Features
 
 - Active calendars
