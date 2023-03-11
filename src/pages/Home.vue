@@ -21,8 +21,8 @@ onMounted(() => {
 <template>
 	<div class="font-inter h-full">
 		<AppHeader class="py-6 px-4" />
-		<main class="snap-x flex-1 h-[calc(100%-80px)]">
-			<div ref="grid" class="grid grid-cols-[repeat(7,minmax(300px,350px))] min-h-full pb-12 overflow-auto">
+		<main class="flex-1 h-[calc(100%-80px)]">
+			<div ref="grid" class="snap-x grid grid-cols-[repeat(7,minmax(300px,350px))] min-h-full pb-12 overflow-auto">
 				<TaskList
 					v-for="(weekday, index) in weekdays"
 					:key="index"
