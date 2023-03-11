@@ -56,7 +56,7 @@ async function signOut() {
 					</div>
 					<a
 						href="#"
-						class="px-4 py-2 flex items-center text-gray-900 text-sm hover:bg-gray-100 transition"
+						class="mx-2 px-2 py-2 rounded flex items-center text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition"
 						@click.prevent="openSettings"
 					>
 						<Cog8ToothIcon class="w-5 h-5 stroke-1.5 mr-2" />
@@ -64,7 +64,7 @@ async function signOut() {
 					>
 					<a
 						href="#"
-						class="px-4 py-2 flex items-center text-gray-900 text-sm hover:bg-gray-100 transition"
+						class="mx-2 px-2 py-2 rounded flex items-center text-gray-500 text-sm hover:bg-gray-100 hover:text-gray-900 transition"
 						@click.prevent="signOut"
 					>
 						<ArrowRightOnRectangleIcon class="w-5 h-5 stroke-1.5 mr-2" />
