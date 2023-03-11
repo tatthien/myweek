@@ -12,7 +12,7 @@ store.fetchTasks()
 const grid = ref<HTMLElement>()
 
 onMounted(() => {
-	const todayList = document.getElementById(`list-${format(new Date(), 'ddMMyyyy')}`)
+	const todayList = document.getElementById(`list-${format(new Date(), 'yyyy-MM-dd')}`)
 	if (grid.value) {
 		grid.value.scrollTo({ top: 0, left: todayList?.offsetLeft - 40, behavior: 'smooth' })
 	}
@@ -27,7 +27,7 @@ onMounted(() => {
 					v-for="(weekday, index) in weekdays"
 					:key="index"
 					:date="weekday"
-					:list-id="format(weekday, 'ddMMyyyy')"
+					:list-id="format(weekday, 'yyyy-MM-dd')"
 					class="snap-center first:ml-4 first:mr-1 last:mr-4 last:ml-1 mx-1"
 				/>
 			</div>

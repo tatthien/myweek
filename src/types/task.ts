@@ -9,7 +9,6 @@ export interface Task {
 	description?: string
 	color: string
 	status: TaskStatus
-	list_id: string
 	order: number
 	user_id: string
 	date: string

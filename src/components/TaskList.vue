@@ -53,7 +53,7 @@
 
 <script lang="ts" setup>
 import { computed, toRef, ref } from 'vue'
-import { format } from 'date-fns'
+import { format, parse } from 'date-fns'
 import { TaskStatus } from '@/types'
 import { useTasks } from '@/stores/task'
 import { useUser } from '@/stores/user'
@@ -75,7 +75,7 @@ const listId = toRef(props, 'listId')
 const tasks = computed({
 	get: () => {
 		return store.tasks
-			.filter(task => format(new Date(task.date), 'ddMMyyyy') === listId.value)
+			.filter(task => format(new Date(task.date), 'yyyy-MM-dd') === listId.value)
 			.sort((a, b) => {
 				return a.order - b.order
 			})
@@ -83,7 +83,7 @@ const tasks = computed({
 	set: async tasks => {
 		try {
 			tasks.forEach((task, index) => {
-				task.list_id = listId.value
+				task.date = listId.value
 				task.order = index
 			})
 			await store.upsert(tasks)
@@ -107,7 +107,7 @@ async function onCreateTask() {
 			title: taskName.value,
 			color: 'transparent',
 			status: TaskStatus.Active,
-			list_id: listId.value,
+			date: listId.value,
 			user_id: user.id,
 			order: tasksCount.value + 1,
 		}

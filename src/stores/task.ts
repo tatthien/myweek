@@ -6,7 +6,7 @@ interface TaskState {
 	tasks: Task[]
 }
 
-const defaultSelect = 'id,status,title,description,list_id,color,order,user_id,date'
+const defaultSelect = 'id,status,title,description,color,order,user_id,date'
 
 export const useTasks = defineStore({
 	id: 'tasks',
@@ -18,9 +18,6 @@ export const useTasks = defineStore({
 	getters: {
 		allTasks(state): Task[] {
 			return state.tasks
-		},
-		tasksByListId(state) {
-			return (listId: string) => state.tasks.filter(task => task.list_id === listId)
 		},
 	},
 	actions: {
