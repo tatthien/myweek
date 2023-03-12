@@ -12,8 +12,9 @@
 					{{ title.trim() || 'Untitled' }}
 				</span>
 			</div>
-			<div>
+			<div v-if="showSubInfo" class="flex items-center gap-2 mt-2">
 				<Bars3BottomLeftIcon v-if="item.description" class="w-4 h-4 text-gray-400" />
+				<div v-if="item.checklists.length" class="text-xs text-gray-400">{{ completedText }}</div>
 			</div>
 			<div class="absolute top-0 right-1">
 				<Dropdown>
@@ -81,6 +82,12 @@ watch(
 	() => props.item,
 	() => (title.value = props.item.title)
 )
+
+const commpletedChecklistItems = computed(() => props.item.checklists.filter(e => e.completed))
+const completedText = computed(() => {
+	return `${commpletedChecklistItems.value.length}/${props.item.checklists.length}`
+})
+const showSubInfo = computed(() => props.item.description || props.item.checklists.length)
 
 function changeStatus(status: string) {
 	store.update(props.item.id, { status })

@@ -62,7 +62,6 @@ async function onSubmit() {
 					<textarea
 						v-model.trim="form.title"
 						v-auto-resize
-						v-focus
 						class="outline-none resize-none w-full text-xl font-medium h-[28px]"
 						placeholder="Type task name..."
 						@keypress.enter.prevent="onSubmit"

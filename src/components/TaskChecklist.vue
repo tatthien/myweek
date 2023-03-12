@@ -15,7 +15,10 @@ watch(
 	() => (checklists.value = props.item.checklists)
 )
 const completedItems = computed(() => checklists.value.filter(e => e.completed))
-const completedPercent = computed(() => (completedItems.value.length / checklists.value.length) * 100)
+const completedPercent = computed(() => {
+	if (!checklists.value.length) return 0
+	return Math.ceil((completedItems.value.length / checklists.value.length) * 100)
+})
 const completedText = computed(() => `${completedItems.value.length}/${checklists.value.length}`)
 const content = ref('')
 const adding = ref(false)
@@ -42,6 +45,16 @@ function onItemUpdated(item: ChecklistItem) {
 }
 </script>
 <template>
+	<div class="mb-2 flex items-center gap-3">
+		<div class="text-sm text-gray-400">{{ completedPercent }}%</div>
+		<div class="relative flex-1">
+			<div
+				class="absolute h-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full transition-all"
+				:style="{ width: `${completedPercent}%` }"
+			></div>
+			<div class="h-2 w-full bg-gray-200 rounded-full"></div>
+		</div>
+	</div>
 	<div class="mb-2" v-if="checklists.length">
 		<TaskChecklistItem
 			:item="checklist"

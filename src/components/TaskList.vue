@@ -54,7 +54,7 @@
 <script lang="ts" setup>
 import { computed, toRef, ref } from 'vue'
 import { format, parse } from 'date-fns'
-import { TaskStatus } from '@/types'
+import { Task, TaskStatus } from '@/types'
 import { useTasks } from '@/stores/task'
 import { useUser } from '@/stores/user'
 import TaskItem from './TaskItem.vue'
@@ -82,11 +82,19 @@ const tasks = computed({
 	},
 	set: async tasks => {
 		try {
+			const updatedTasks: Array<Partial<Task>> = []
 			tasks.forEach((task, index) => {
 				task.date = listId.value
 				task.order = index
+
+				updatedTasks.push({
+					id: task.id,
+					user_id: task.user_id,
+					date: listId.value,
+					order: index,
+				})
 			})
-			await store.upsert(tasks)
+			await store.upsert(updatedTasks)
 		} catch (error: any) {
 			addToast('error', error.message)
 		}

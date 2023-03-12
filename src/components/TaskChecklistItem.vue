@@ -26,9 +26,9 @@ async function deleteItem() {
 </script>
 <template>
 	<div
-		class="group hover:bg-gray-100 hover:text-gray-900 -mx-2 px-2 py-1 rounded flex items-center gap-2 text-sm text-gray-600 cursor-pointer transition"
+		class="group hover:bg-gray-100 hover:text-gray-900 -mx-2 px-2 py-1 rounded flex items-center gap-2 text-gray-600 cursor-pointer transition"
 	>
-		<input type="checkbox" v-model="form.completed" @change="update" :checked="form.completed" />
+		<input type="checkbox" v-model="form.completed" @change="update" :checked="form.completed" class="cursor-pointer" />
 		<input
 			v-if="editing"
 			type="text"
@@ -39,9 +39,9 @@ async function deleteItem() {
 			class="md:text-sm w-full border border-gray-300 rounded px-2 outline-none focus:border-gray-400 transition"
 		/>
 		<template v-else>
-			<span class="block flex-1" @click="editing = true">{{ item.content || 'Untitled' }}</span>
+			<span class="block flex-1 md:text-sm" @click="editing = true">{{ item.content || 'Untitled' }}</span>
 			<button
-				class="hidden group-hover:inline-flex text-gray-600 hover:bg-gray-200 whitespace-nowrap items-center rounded p-0.5"
+				class="md:hidden group-hover:inline-flex text-gray-600 hover:bg-gray-200 whitespace-nowrap items-center rounded p-0.5"
 				@click.prevent="deleteItem"
 			>
 				<TrashIcon class="w-4 h-4 stroke-1.5 text-red-400" />
