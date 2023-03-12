@@ -36,7 +36,7 @@ async function deleteItem() {
 			v-model.trim="form.content"
 			@blur="editing = false"
 			@keypress.enter.prevent="update"
-			class="md:text-sm w-full border border-gray-300 rounded px-2 outline-none focus:border-gray-400 transition"
+			class="md:text-sm w-full border border-gray-300 rounded px-1 outline-none focus:border-gray-400 transition"
 		/>
 		<template v-else>
 			<span
