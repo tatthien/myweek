@@ -26,7 +26,7 @@ async function deleteItem() {
 </script>
 <template>
 	<div
-		class="group hover:bg-gray-100 hover:text-gray-900 -mx-2 px-2 py-1 rounded flex items-center gap-2 text-gray-600 cursor-pointer transition"
+		class="group hover:bg-gray-100 hover:text-gray-900 -mx-2 px-2 py-1 rounded flex items-center gap-2 text-gray-600 cursor-pointer"
 	>
 		<input type="checkbox" v-model="form.completed" @change="update" :checked="form.completed" class="cursor-pointer" />
 		<input

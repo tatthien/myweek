@@ -4,12 +4,29 @@ import { Task, ChecklistItem } from '@/types'
 import { addToast } from '@/composables/toast'
 import { useTasks } from '@/stores/task'
 import TaskChecklistItem from '@/components/TaskChecklistItem.vue'
+import Draggable from 'vuedraggable'
 
 const props = defineProps<{
 	item: Task
 }>()
 const task = useTasks()
-const checklists = ref<ChecklistItem[]>(props.item.checklists)
+const checklists = computed<ChecklistItem[]>({
+	get: () => {
+		return props.item.checklists.sort((a: ChecklistItem, b: ChecklistItem) => {
+			return a.order - b.order
+		})
+	},
+	set: async (checklists: ChecklistItem[]) => {
+		try {
+			checklists.forEach((checklist, index) => {
+				checklist.order = index
+			})
+			await task.upsertChecklistItems(checklists)
+		} catch (error: any) {
+			addToast('error', error.message)
+		}
+	},
+})
 watch(
 	() => props.item.checklists,
 	() => (checklists.value = props.item.checklists)
@@ -22,6 +39,7 @@ const completedPercent = computed(() => {
 const completedText = computed(() => `${completedItems.value.length}/${checklists.value.length}`)
 const content = ref('')
 const adding = ref(false)
+const drag = ref(false)
 async function addItem() {
 	adding.value = true
 	try {
@@ -36,12 +54,14 @@ async function addItem() {
 
 function onItemDeleted(item: ChecklistItem) {
 	checklists.value = checklists.value.filter(e => e.id !== item.id)
+	task.fetchTasks() // @TODO: consider to emit a event or fetch new items
 }
 
 function onItemUpdated(item: ChecklistItem) {
 	checklists.value = checklists.value.map(e => {
 		return e.id === item.id ? item : e
 	})
+	task.fetchTasks() // @TODO: consider to emit a event or fetch new items
 }
 </script>
 <template>
@@ -56,13 +76,29 @@ function onItemUpdated(item: ChecklistItem) {
 		</div>
 	</div>
 	<div v-if="checklists.length">
-		<TaskChecklistItem
-			:item="checklist"
-			v-for="checklist in checklists"
-			:key="checklist.id"
-			@updated="onItemUpdated"
-			@deleted="onItemDeleted"
-		/>
+		<Draggable
+			v-model="checklists"
+			v-bind="{
+				animation: 200,
+				group: 'description',
+				disabled: false,
+				ghostClass: 'ghost',
+			}"
+			item-key="id"
+			ghost-class="ghost"
+			:component-data="{
+				tag: 'div',
+				type: 'transition-group',
+				name: !drag ? 'flip-list' : null,
+			}"
+			:group="{ name: 'checklist', pull: true, put: true }"
+			@start="drag = true"
+			@end="drag = false"
+		>
+			<template #item="{ element }">
+				<TaskChecklistItem :item="element" :key="element.id" @updated="onItemUpdated" @deleted="onItemDeleted" />
+			</template>
+		</Draggable>
 	</div>
 	<div class="py-1 flex items-center gap-2">
 		<div class="w-[13px] h-[13px] rounded-sm border border-dotted border-gray-500"></div>

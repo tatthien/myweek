@@ -6,8 +6,8 @@ interface TaskState {
 	tasks: Task[]
 }
 
-const defaultSelect = `id,status,title,description,color,order,user_id,date,checklists(id,content,completed)`
-const defaultChecklistSelect = 'id,content,completed'
+const defaultSelect = `id,status,title,description,color,order,user_id,date,checklists(id,content,completed,order,user_id)`
+const defaultChecklistSelect = 'id,content,completed,order,user_id'
 
 export const useTasks = defineStore({
 	id: 'tasks',
@@ -23,7 +23,10 @@ export const useTasks = defineStore({
 	},
 	actions: {
 		async fetchTasks() {
-			const { data: tasks, error } = await supabase.from('tasks').select(defaultSelect)
+			const { data: tasks, error } = await supabase
+				.from('tasks')
+				.select(defaultSelect)
+				.order('order', { foreignTable: 'checklists', ascending: true })
 			if (error) throw error
 			this.tasks = tasks
 		},
@@ -61,6 +64,7 @@ export const useTasks = defineStore({
 					task_id: task.id,
 					user_id: task.user_id,
 					completed: false,
+					order: task.checklists.length + 1,
 				})
 				.select(defaultChecklistSelect)
 			if (error) throw error
@@ -72,6 +76,10 @@ export const useTasks = defineStore({
 		},
 		async deleteChecklistItem(id: string) {
 			const { error } = await supabase.from('checklists').delete().eq('id', id)
+			if (error) throw error
+		},
+		async upsertChecklistItems(checklist: any) {
+			const { error } = await supabase.from('checklists').upsert(checklist)
 			if (error) throw error
 		},
 	},

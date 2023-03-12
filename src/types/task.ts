@@ -19,4 +19,5 @@ export interface ChecklistItem {
 	id: string
 	content: string
 	completed: boolean
+	order: number
 }
