@@ -15,9 +15,9 @@ Here is some screenshots of MyWeek. Visit [myweek.thien.dev](https://myweek.thie
 - Manage tasks
 - Notes
 - Drag & drop items
+- Checklists
 - Dark theme (coming soon)
 - Recurring tasks (comming soon)
-- Checklists (comming soon)
 - Labels (comming soon)
 
 ## Development
