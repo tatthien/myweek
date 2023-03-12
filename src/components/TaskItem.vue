@@ -12,9 +12,12 @@
 					{{ title.trim() || 'Untitled' }}
 				</span>
 			</div>
-			<div v-if="showSubInfo" class="flex items-center gap-2 mt-2">
+			<div v-if="showSubInfo" class="flex items-center gap-2.5 mt-2">
 				<Bars3BottomLeftIcon v-if="item.description" class="w-4 h-4 text-gray-400" />
-				<div v-if="item.checklists.length" class="text-xs text-gray-400">{{ completedText }}</div>
+				<div v-if="item.checklists.length" class="text-xs text-gray-400 flex items-center gap-1">
+					<CheckIcon class="w-4 h-4" />
+					{{ completedText }}
+				</div>
 			</div>
 			<div class="absolute top-0 right-1">
 				<Dropdown>
@@ -61,7 +64,12 @@ import DropdownItem from '@/components/DropdownItem.vue'
 import { useTasks } from '@/stores/task'
 import { useUser } from '@/stores/user'
 import { CheckCircleIcon, Bars3BottomLeftIcon, EllipsisHorizontalIcon } from '@heroicons/vue/24/solid'
-import { PencilSquareIcon, TrashIcon, CheckCircleIcon as CheckCircleOutlineIcon } from '@heroicons/vue/24/outline'
+import {
+	PencilSquareIcon,
+	TrashIcon,
+	CheckCircleIcon as CheckCircleOutlineIcon,
+	CheckIcon,
+} from '@heroicons/vue/24/outline'
 
 const store = useTasks()
 
