@@ -69,7 +69,7 @@ function onItemUpdated(item: ChecklistItem) {
 		<input
 			v-model.trim="content"
 			class="md:text-sm w-full outline-none transition text-gray-600"
-			placeholder="Add a new item"
+			placeholder="Type item name & press ↵"
 			@keypress.enter.prevent="addItem"
 		/>
 	</div>
