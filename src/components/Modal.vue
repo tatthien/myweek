@@ -39,8 +39,10 @@ function close() {
 
 <template>
 	<div class="fixed inset-0 z-[100]">
-		<div :class="[sizeClasses, 'absolute left-1/2 top-[4rem] -translate-x-1/2 z-10 w-full px-4 h-[calc(100%-8rem)]']">
-			<div class="bg-white shadow-lg rounded-md max-h-full overflow-y-auto">
+		<div
+			:class="[sizeClasses, 'absolute left-1/2 top-[4rem] -translate-x-1/2 z-10 w-full px-4 max-h-[calc(100%-8rem)]']"
+		>
+			<div class="bg-white shadow-lg rounded-md h-full overflow-y-auto">
 				<template v-if="header">
 					<slot name="header">
 						<div class="p-6">

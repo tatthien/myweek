@@ -39,7 +39,11 @@ async function deleteItem() {
 			class="md:text-sm w-full border border-gray-300 rounded px-2 outline-none focus:border-gray-400 transition"
 		/>
 		<template v-else>
-			<span class="block flex-1 md:text-sm" @click="editing = true">{{ item.content || 'Untitled' }}</span>
+			<span
+				:class="['block flex-1 md:text-sm', form.completed ? 'text-gray-400 line-through' : '']"
+				@click="editing = true"
+				>{{ item.content || 'Untitled' }}</span
+			>
 			<button
 				class="md:hidden group-hover:inline-flex text-gray-600 hover:bg-gray-200 whitespace-nowrap items-center rounded p-0.5"
 				@click.prevent="deleteItem"

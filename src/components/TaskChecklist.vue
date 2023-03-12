@@ -55,7 +55,7 @@ function onItemUpdated(item: ChecklistItem) {
 			<div class="h-2 w-full bg-gray-200 rounded-full"></div>
 		</div>
 	</div>
-	<div class="mb-2" v-if="checklists.length">
+	<div v-if="checklists.length">
 		<TaskChecklistItem
 			:item="checklist"
 			v-for="checklist in checklists"
@@ -64,13 +64,13 @@ function onItemUpdated(item: ChecklistItem) {
 			@deleted="onItemDeleted"
 		/>
 	</div>
-	<div class="flex items-center gap-2">
+	<div class="py-1 flex items-center gap-2">
+		<div class="w-[13px] h-[13px] rounded-sm border border-dotted border-gray-500"></div>
 		<input
 			v-model.trim="content"
-			class="md:text-sm w-full border border-gray-300 rounded-md px-2 h-[32px] outline-none focus:border-gray-400 transition"
-			placeholder="Add an item"
+			class="md:text-sm w-full outline-none transition text-gray-600"
+			placeholder="Add a new item"
 			@keypress.enter.prevent="addItem"
 		/>
-		<WButton variant="secondary" size="sm" :loading="adding" @click="addItem">Add</WButton>
 	</div>
 </template>
