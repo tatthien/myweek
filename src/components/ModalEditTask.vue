@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import Modal from '@/components/Modal.vue'
 import TaskChecklist from '@/components/TaskChecklist.vue'
-import { PlayCircleIcon, CheckCircleIcon, CalendarIcon } from '@heroicons/vue/24/solid'
+import { IconCalendar, IconPlayerPlayFilled } from '@tabler/icons-vue'
 import { Task } from '@/types'
 import { ref, watch, computed } from 'vue'
 import { useTasks } from '@/stores/task'
@@ -45,7 +45,12 @@ const submitButtonText = computed(() => (isFormChanged.value ? 'Save all changes
 async function onSubmit() {
 	isSaving.value = true
 	try {
-		await store.update(props.item.id, form.value)
+		await store.update(props.item.id, {
+			status: form.value.status,
+			date: form.value.date,
+			description: form.value.description,
+			title: form.value.title,
+		})
 		emit('close')
 	} catch (error: any) {
 		addToast('error', error.message)
@@ -69,9 +74,10 @@ async function onSubmit() {
 				<div>
 					<div class="space-y-2">
 						<div class="grid grid-cols-[100px_1fr] items-center">
-							<label class="md:text-sm text-gray-600 inline-flex items-center gap-2"
-								><PlayCircleIcon class="w-4 h-4" />Status</label
-							>
+							<label class="md:text-sm text-gray-600 inline-flex items-center gap-2">
+								<IconPlayerPlayFilled size="16" />
+								Status
+							</label>
 							<div>
 								<select
 									v-model="form.status"
@@ -84,7 +90,7 @@ async function onSubmit() {
 						</div>
 						<div class="grid grid-cols-[100px_1fr] items-center">
 							<label class="md:text-sm text-gray-600 inline-flex items-center gap-2">
-								<CalendarIcon class="w-4 h-4" />
+								<IconCalendar size="16" />
 								Date
 							</label>
 							<div>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import Modal from '@/components/Modal.vue'
-import { UserIcon, TagIcon, SwatchIcon } from '@heroicons/vue/24/outline'
+import { IconUser, IconColorSwatch, IconTag } from '@tabler/icons-vue'
 import SettingsMyAccount from '@/components/settings/SettingsMyAccount.vue'
 import SettingsLabels from '@/components/settings/SettingsLabels.vue'
 
@@ -29,7 +29,7 @@ const tabGroup = [
 		section: 'Account',
 		tabs: [
 			{
-				icon: UserIcon,
+				icon: IconUser,
 				id: 'account',
 				text: 'My account',
 			},
@@ -39,12 +39,12 @@ const tabGroup = [
 		section: 'Settings',
 		tabs: [
 			{
-				icon: SwatchIcon,
+				icon: IconColorSwatch,
 				id: 'appearance',
 				text: 'Appearance',
 			},
 			{
-				icon: TagIcon,
+				icon: IconTag,
 				id: 'labels',
 				text: 'Labels',
 			},
@@ -73,8 +73,8 @@ const currentTab = ref('account')
 							tabindex="0"
 							:key="id"
 						>
-							<div class="flex items-center text-sm text-gray-700">
-								<component :is="icon" class="w-4 h-4 mr-2 stroke-2" />
+							<div class="flex items-center gap-2 text-sm text-gray-700">
+								<component :is="icon" size="16" />
 								<div>{{ text }}</div>
 							</div>
 						</div>

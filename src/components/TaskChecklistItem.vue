@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { ChecklistItem } from '@/types'
-import { TrashIcon } from '@heroicons/vue/24/outline'
+import { IconTrash } from '@tabler/icons-vue'
 import { useTasks } from '@/stores/task'
 const props = defineProps<{
 	item: ChecklistItem
@@ -45,10 +45,10 @@ async function deleteItem() {
 				>{{ item.content || 'Untitled' }}</span
 			>
 			<button
-				class="md:hidden group-hover:inline-flex text-gray-600 hover:bg-gray-200 whitespace-nowrap items-center rounded p-0.5"
+				class="md:hidden group-hover:inline-flex text-red-400 hover:bg-gray-200 whitespace-nowrap items-center rounded p-0.5"
 				@click.prevent="deleteItem"
 			>
-				<TrashIcon class="w-4 h-4 stroke-1.5 text-red-400" />
+				<IconTrash size="16" />
 			</button>
 		</template>
 	</div>

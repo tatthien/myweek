@@ -1,18 +1,18 @@
 <template>
 	<div
-		class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5"
+		class="relative pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5"
 	>
 		<div class="p-4">
-			<div class="flex items-start">
+			<div class="flex items-center">
 				<div class="flex-shrink-0">
-					<CheckCircleIcon v-if="type === 'success'" class="h-6 w-6 text-green-400" aria-hidden="true" />
-					<XCircleIcon v-else class="h-6 w-6 text-red-400" aria-hidden="true" />
+					<IconCircleCheck v-if="type === 'success'" size="24" class="text-green-400" aria-hidden="true" />
+					<IconCircleX v-else size="24" class="text-red-400" aria-hidden="true" />
 				</div>
 				<div class="ml-3 w-0 flex-1 pt-0.5">
 					<p class="text-sm font-medium text-gray-900">
 						{{ title }}
 					</p>
-					<p class="mt-1 text-sm text-gray-500">
+					<p v-if="content" class="mt-1 text-sm text-gray-500">
 						{{ content }}
 					</p>
 				</div>
@@ -23,7 +23,7 @@
 						@click="store.removeItem(props.id)"
 					>
 						<span class="sr-only">Close</span>
-						<XMarkIcon class="h-5 w-5" aria-hidden="true" />
+						<IconX size="16" aria-hidden="true" />
 					</button>
 				</div>
 			</div>
@@ -32,8 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { CheckCircleIcon, XCircleIcon } from '@heroicons/vue/24/outline'
-import { XMarkIcon } from '@heroicons/vue/20/solid'
+import { IconCircleCheck, IconCircleX, IconX } from '@tabler/icons-vue'
 import { useToastStore } from '@/stores/toast'
 
 const props = defineProps<{

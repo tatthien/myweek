@@ -40,10 +40,10 @@
 				/>
 
 				<button
-					class="text-sm inline-flex items-center px-2 py-2 font-medium rounded-md text-gray-700 transition w-full mb-2 hover:bg-gray-200"
+					class="text-sm inline-flex items-center gap-2 px-2 py-2 font-medium rounded-md text-gray-700 transition w-full mb-2 hover:bg-gray-200"
 					@click="addNew"
 				>
-					<PlusSmallIcon class="w-5 h-5 mr-1" />
+					<IconPlus size="16" />
 					<span>New</span>
 				</button>
 			</div>
@@ -59,7 +59,7 @@ import { useTasks } from '@/stores/task'
 import { useUser } from '@/stores/user'
 import TaskItem from './TaskItem.vue'
 import Draggable from 'vuedraggable'
-import { PlusSmallIcon } from '@heroicons/vue/24/outline'
+import { IconPlus } from '@tabler/icons-vue'
 import { addToast } from '@/composables/toast'
 
 const props = defineProps<{

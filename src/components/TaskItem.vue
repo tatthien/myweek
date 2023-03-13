@@ -6,16 +6,16 @@
 		@keypress.enter.prevent="openModal = true"
 	>
 		<div class="relative">
-			<div class="flex items-center box-content">
-				<CheckCircleIcon v-if="item.status === 'done'" class="w-4 h-4 mr-2 text-gray-400 shrink-0" />
+			<div class="flex gap-2 box-content">
+				<IconCircleCheckFilled v-if="item.status === 'done'" size="16" class="text-gray-400 shrink-0 mt-[2.5px]" />
 				<span class="block" :style="styles" :class="[item.status === 'done' ? 'text-gray-400' : '']">
 					{{ title || 'Untitled' }}
 				</span>
 			</div>
-			<div v-if="showSubInfo" class="flex items-center gap-2.5 mt-2">
-				<Bars3BottomLeftIcon v-if="item.description" class="w-4 h-4 text-gray-400" />
-				<div v-if="item.checklists.length" class="text-xs text-gray-400 flex items-center gap-1">
-					<CheckIcon class="w-4 h-4" />
+			<div v-if="showSubInfo" class="flex items-center gap-2.5 mt-2 text-xs text-gray-400">
+				<IconAlignJustified v-if="item.description" size="16" />
+				<div v-if="item.checklists.length" class="flex items-center gap-1">
+					<IconCheckbox size="16" />
 					{{ completedText }}
 				</div>
 			</div>
@@ -25,24 +25,24 @@
 						<span
 							class="hidden group-hover:block border border-gray-200 shadow rounded bg-white text-gray-400 hover:text-gray-900"
 						>
-							<EllipsisHorizontalIcon class="w-5 h-5 text-gray-400" />
+							<IconDots size="16" />
 						</span>
 					</template>
 					<DropdownItem @click="openModal = true">
-						<div class="flex item-centers">
-							<PencilSquareIcon class="w-4 h-4 mr-2" />
+						<div class="flex item-centers gap-2">
+							<IconEdit size="16" />
 							Edit
 						</div>
 					</DropdownItem>
 					<DropdownItem @click="changeStatus(item.status === 'active' ? 'done' : 'active')">
-						<div class="flex items-center">
-							<CheckCircleOutlineIcon class="w-4 h-4 mr-2" />
+						<div class="flex items-center gap-2">
+							<IconCircleCheck size="16" />
 							Mark as {{ item.status === 'active' ? 'done' : 'active' }}
 						</div>
 					</DropdownItem>
 					<DropdownItem @click="archive">
-						<div class="flex items-center">
-							<TrashIcon class="w-4 h-4 text-red-400 mr-2" />
+						<div class="flex items-center gap-2">
+							<IconTrash size="16" class="text-red-400" />
 							Delete
 						</div>
 					</DropdownItem>
@@ -63,20 +63,22 @@ import Dropdown from '@/components/Dropdown.vue'
 import DropdownItem from '@/components/DropdownItem.vue'
 import { useTasks } from '@/stores/task'
 import { useUser } from '@/stores/user'
-import { CheckCircleIcon, Bars3BottomLeftIcon, EllipsisHorizontalIcon } from '@heroicons/vue/24/solid'
 import {
-	PencilSquareIcon,
-	TrashIcon,
-	CheckCircleIcon as CheckCircleOutlineIcon,
-	CheckIcon,
-} from '@heroicons/vue/24/outline'
+	IconCheckbox,
+	IconAlignJustified,
+	IconTrash,
+	IconEdit,
+	IconCircleCheck,
+	IconCircleCheckFilled,
+	IconDots,
+} from '@tabler/icons-vue'
 
 const store = useTasks()
 
 const props = defineProps<{
 	item: Task
 }>()
-const emit = defineEmits('submit')
+const emit = defineEmits(['submit'])
 const openModal = ref(false)
 const styles = computed(() => {
 	return {

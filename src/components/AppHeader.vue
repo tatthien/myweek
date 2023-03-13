@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { format } from 'date-fns'
 import { computed, ref } from 'vue'
-import { ChevronLeftIcon, ChevronRightIcon, Cog8ToothIcon, ArrowRightOnRectangleIcon } from '@heroicons/vue/24/outline'
+import { IconSettings, IconSquareArrowRight, IconChevronRight, IconChevronLeft } from '@tabler/icons-vue'
 import { firstDateOfWeek, goToNextWeek, goToPrevWeek, jumpToCurrentWeek } from '@/composables/date'
 import { supabase } from '@/composables/supabase'
 import { useUser } from '@/stores/user'
@@ -29,11 +29,17 @@ async function signOut() {
 				<a href="#" @click="jumpToCurrentWeek">{{ currentMonth }}</a>
 			</h1>
 			<div class="flex items-center gap-2">
-				<button class="inline-flex rounded hover:bg-gray-200" @click="goToPrevWeek">
-					<ChevronLeftIcon class="w-5 h-5 text-gray-400" />
+				<button
+					class="inline-flex rounded text-gray-400 hover:bg-gray-200 hover:text-gray-900 transition"
+					@click="goToPrevWeek"
+				>
+					<IconChevronLeft size="24" />
 				</button>
-				<button class="inline-flex rounded hover:bg-gray-200" @click="goToNextWeek">
-					<ChevronRightIcon class="w-5 h-5 text-gray-400" />
+				<button
+					class="inline-flex rounded text-gray-400 hover:bg-gray-200 hover:text-gray-900 transition"
+					@click="goToNextWeek"
+				>
+					<IconChevronRight size="24" />
 				</button>
 			</div>
 		</div>
@@ -56,18 +62,18 @@ async function signOut() {
 					</div>
 					<a
 						href="#"
-						class="mx-2 px-2 py-2 rounded flex items-center text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition"
+						class="mx-2 px-2 py-2 rounded flex items-center gap-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition"
 						@click.prevent="openSettings"
 					>
-						<Cog8ToothIcon class="w-5 h-5 stroke-1.5 mr-2" />
+						<IconSettings size="16" />
 						Settings</a
 					>
 					<a
 						href="#"
-						class="mx-2 px-2 py-2 rounded flex items-center text-gray-500 text-sm hover:bg-gray-100 hover:text-gray-900 transition"
+						class="mx-2 px-2 py-2 rounded flex items-center gap-2 text-gray-500 text-sm hover:bg-gray-100 hover:text-gray-900 transition"
 						@click.prevent="signOut"
 					>
-						<ArrowRightOnRectangleIcon class="w-5 h-5 stroke-1.5 mr-2" />
+						<IconSquareArrowRight size="16" />
 						Log out</a
 					>
 				</nav>
