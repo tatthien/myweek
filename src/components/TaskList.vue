@@ -153,6 +153,6 @@ const dragOptions = {
 
 <style>
 .ghost {
-	@apply bg-blue-100 border-blue-600;
+	opacity: 0.5;
 }
 </style>
