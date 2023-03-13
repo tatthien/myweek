@@ -81,7 +81,7 @@ async function onSubmit() {
 							<div>
 								<select
 									v-model="form.status"
-									class="md:text-sm w-auto border border-gray-300 rounded-md px-2 h-[32px] outline-none focus:border-gray-400 transition"
+									class="md:text-sm w-auto rounded-md px-2 h-[32px] outline-none hover:bg-gray-100 transition cursor-pointer"
 								>
 									<option value="active">Active</option>
 									<option value="done">Done</option>
@@ -97,7 +97,7 @@ async function onSubmit() {
 								<input
 									v-model="form.date"
 									type="date"
-									class="md:text-sm w-auto border border-gray-300 rounded-md px-2 h-[32px] outline-none focus:border-gray-400 transition"
+									class="md:text-sm w-auto rounded-md px-2 h-[32px] outline-none hover:bg-gray-100 transition"
 								/>
 							</div>
 						</div>

@@ -45,7 +45,7 @@ async function deleteItem() {
 				>{{ item.content || 'Untitled' }}</span
 			>
 			<button
-				class="md:hidden group-hover:inline-flex text-red-400 hover:bg-gray-200 whitespace-nowrap items-center rounded p-0.5"
+				class="text-gray-400 hover:text-gray-900 whitespace-nowrap items-center rounded p-0.5"
 				@click.prevent="deleteItem"
 			>
 				<IconTrash size="16" />
