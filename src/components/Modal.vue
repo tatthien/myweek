@@ -38,11 +38,18 @@ function close() {
 </script>
 
 <template>
-	<div class="fixed inset-0 z-[100]">
+	<div
+		style="--tw-bg-opacity: 0.3"
+		class="fixed inset-0 z-[100] overflow-x-hidden overflow-y-auto bg-gray-900"
+		role="dialog"
+		tabindex="-1"
+		@click="close"
+	>
 		<div
-			:class="[sizeClasses, 'absolute left-1/2 top-[4rem] -translate-x-1/2 z-10 w-full px-4 max-h-[calc(100%-8rem)]']"
+			@click.stop="false"
+			:class="[sizeClasses, 'absolute left-1/2 top-[2rem] md:top-[5rem] -translate-x-1/2 z-10 w-full px-4 pb-8']"
 		>
-			<div class="bg-white shadow-lg rounded-md h-full overflow-y-auto">
+			<div class="bg-white shadow-lg rounded-md h-full">
 				<template v-if="header">
 					<slot name="header">
 						<div class="p-6">
@@ -55,6 +62,5 @@ function close() {
 				<slot />
 			</div>
 		</div>
-		<div class="absolute inset-0 bg-black opacity-20 z-8" @click="close" />
 	</div>
 </template>
