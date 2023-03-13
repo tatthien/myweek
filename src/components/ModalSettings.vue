@@ -58,7 +58,7 @@ const currentTab = ref('account')
 <template>
 	<Modal v-if="openModal" :open="openModal" size="lg" :header="false" @close="emit('close')">
 		<div class="flex">
-			<div class="bg-gray-100 p-4 rounded-l-lg space-y-6">
+			<div class="bg-gray-100 p-4 rounded-l-lg space-y-6 md:min-w-[180px]">
 				<div v-for="{ section, tabs } in tabGroup" :key="section">
 					<div class="text-xs font-medium text-gray-500 my-2">{{ section }}</div>
 					<div class="space-y-1">

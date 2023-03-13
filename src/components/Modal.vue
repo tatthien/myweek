@@ -23,7 +23,7 @@ const open = ref(props.open)
 const sizeClasses = computed(() => {
 	switch (props.size) {
 		case 'lg':
-			return 'md:w-[720px]'
+			return 'lg:w-[820px]'
 		case 'md':
 			return 'md:w-[620px]'
 		default:
