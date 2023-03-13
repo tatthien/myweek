@@ -17,6 +17,7 @@ specifiers:
   eslint-import-resolver-typescript: ^3.5.3
   eslint-plugin-import: ^2.27.5
   eslint-plugin-vue: ^9.9.0
+  lodash: ^4.17.21
   pinia: ^2.0.32
   postcss: ^8.4.21
   sass: ^1.58.3
@@ -37,6 +38,7 @@ dependencies:
   '@supabase/supabase-js': 2.10.0
   '@vercel/analytics': 0.1.11
   date-fns: 2.29.3
+  lodash: 4.17.21
   pinia: 2.0.32_hmuptsblhheur2tugfgucj7gc4
   vue: 3.2.47
   vue-router: 4.1.6_vue@3.2.47
@@ -2050,7 +2052,6 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /lru-cache/6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}

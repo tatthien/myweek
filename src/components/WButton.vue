@@ -18,7 +18,7 @@ const emit = defineEmits(['click'])
 
 const colorClasses = computed(() => {
 	if (props.disabled) {
-		return 'bg-gray-300 text-gray-600 cursor-not-allowed'
+		return 'bg-gray-200 text-gray-700 cursor-not-allowed'
 	}
 
 	switch (props.variant) {

@@ -3,10 +3,11 @@ import Modal from '@/components/Modal.vue'
 import TaskChecklist from '@/components/TaskChecklist.vue'
 import { PlayCircleIcon, CheckCircleIcon, CalendarIcon } from '@heroicons/vue/24/solid'
 import { Task } from '@/types'
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { useTasks } from '@/stores/task'
 import { addToast } from '@/composables/toast'
 import { format } from 'date-fns'
+import isEqual from 'lodash/isEqual'
 
 const props = withDefaults(
 	defineProps<{
@@ -19,13 +20,10 @@ const props = withDefaults(
 )
 const emit = defineEmits(['close'])
 const store = useTasks()
-const form = ref({
-	status: props.item.status,
-	title: props.item.title,
-	description: props.item.description,
-	date: props.item.date,
-})
+const form = ref({ ...props.item })
 const openModal = ref(false)
+const isSaving = ref(false)
+
 watch(
 	() => props.open,
 	() => {
@@ -35,13 +33,14 @@ watch(
 watch(
 	() => props.item,
 	() => {
-		form.value.status = props.item.status
-		form.value.title = props.item.title
-		form.value.description = props.item.description
-		form.value.date = props.item.date
+		form.value = { ...props.item }
 	}
 )
-const isSaving = ref(false)
+
+const isFormChanged = computed(() => {
+	return !isEqual(form.value, props.item)
+})
+const submitButtonText = computed(() => (isFormChanged.value ? 'Save all changes' : 'All changed save'))
 
 async function onSubmit() {
 	isSaving.value = true
@@ -105,14 +104,15 @@ async function onSubmit() {
 							placeholder="Add a more detailed description..."
 						/>
 					</div>
+					<div class="flex items-center gap-2 mt-4">
+						<WButton type="submit" :loading="isSaving" size="sm" :disabled="!isFormChanged">{{
+							submitButtonText
+						}}</WButton>
+					</div>
 					<div class="mt-6">
 						<h2 class="font-medium mb-4">Checklist</h2>
 						<TaskChecklist :item="item" />
 					</div>
-				</div>
-				<div class="flex items-center gap-2 mt-10">
-					<WButton variant="secondary" size="sm" @click="emit('close')"> Cancel </WButton>
-					<WButton type="submit" :loading="isSaving" size="sm"> Save </WButton>
 				</div>
 			</form>
 		</div>
