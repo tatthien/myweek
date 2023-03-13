@@ -9,7 +9,7 @@
 			<div class="flex items-center box-content">
 				<CheckCircleIcon v-if="item.status === 'done'" class="w-4 h-4 mr-2 text-gray-400 shrink-0" />
 				<span class="block" :style="styles" :class="[item.status === 'done' ? 'text-gray-400' : '']">
-					{{ title.trim() || 'Untitled' }}
+					{{ title || 'Untitled' }}
 				</span>
 			</div>
 			<div v-if="showSubInfo" class="flex items-center gap-2.5 mt-2">
