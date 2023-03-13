@@ -40,7 +40,7 @@ watch(
 const isFormChanged = computed(() => {
 	return !isEqual(form.value, props.item)
 })
-const submitButtonText = computed(() => (isFormChanged.value ? 'Save all changes' : 'All changed save'))
+const submitButtonText = computed(() => (isFormChanged.value ? 'Save all changes' : 'All changes saved'))
 
 async function onSubmit() {
 	isSaving.value = true
