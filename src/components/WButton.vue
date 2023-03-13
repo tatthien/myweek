@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { IconLoader } from '@tabler/icons-vue'
 type PropType = {
 	variant?: 'primary' | 'secondary'
 	size?: 'sm' | 'base' | 'lg'
@@ -38,6 +39,15 @@ const sizeClasses = computed(() => {
 	}
 })
 
+const loaderIconSize = computed(() => {
+	switch (props.size) {
+		case 'sm':
+			return 16
+		default:
+			return 20
+	}
+})
+
 const isDisabled = computed(() => props.loading || props.disabled)
 
 function click() {
@@ -50,18 +60,14 @@ function click() {
 			colorClasses,
 			sizeClasses,
 			full ? 'w-full' : 'w-auto',
-			'inline-flex items-center justify-center font-medium rounded-md px-4 transition whitespace-nowrap',
+			'inline-flex items-center gap-2 justify-center font-medium rounded-md px-4 transition whitespace-nowrap',
 		]"
 		:disabled="isDisabled"
 		@click="click"
 	>
-		<slot v-if="!loading" />
-		<div v-else class="flex items-center gap-1">
-			<span
-				v-for="i in 3"
-				:key="i"
-				:class="['w-2 h-2 rounded animate-pulse', variant === 'secondary' ? 'bg-gray-900' : 'bg-white']"
-			/>
+		<div v-if="loading" class="animate-spin">
+			<IconLoader :size="loaderIconSize" stroke-width="3" />
 		</div>
+		<slot />
 	</button>
 </template>
