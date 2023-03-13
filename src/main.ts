@@ -9,6 +9,7 @@ import focus from './directives/focus'
 import WButton from './components/WButton.vue'
 import { plugin, defaultConfig } from '@formkit/vue'
 import formKitConfig from '../formkit.config'
+import { inject } from '@vercel/analytics'
 
 const app = createApp(App)
 app.use(createPinia())
@@ -25,3 +26,5 @@ app.directive('focus', focus)
 app.component('WButton', WButton)
 
 app.mount('#app')
+
+inject()
