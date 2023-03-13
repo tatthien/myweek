@@ -43,7 +43,7 @@ async function onSubmit() {
 					type="password"
 					label="Password"
 					placeholder="••••••••"
-					validation="required|length:6"
+					validation="required"
 				/>
 				<div>
 					<WButton type="submit" full :loading="isSigningIn"> Sign in </WButton>
