@@ -15,11 +15,13 @@ module.exports = {
 		'plugin:import/recommended',
 		'plugin:import/typescript',
 		'plugin:@typescript-eslint/recommended',
+		'plugin:prettier/recommended',
 	],
 	plugins: ['import'],
 	rules: {
 		'vue/multi-word-component-names': 'off',
 		'vue/html-indent': ['error', 'tab'],
+		'@typescript-eslint/no-explicit-any': 'off',
 	},
 	settings: {
 		'import/resolver': {

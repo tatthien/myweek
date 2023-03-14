@@ -10,33 +10,16 @@ const props = defineProps<{
 	item: Task
 }>()
 const task = useTasks()
-const checklists = computed<ChecklistItem[]>({
-	get: () => {
-		return props.item.checklists.sort((a: ChecklistItem, b: ChecklistItem) => {
-			return a.order - b.order
-		})
-	},
-	set: async (checklists: ChecklistItem[]) => {
-		try {
-			checklists.forEach((checklist, index) => {
-				checklist.order = index
-			})
-			await task.upsertChecklistItems(checklists)
-		} catch (error: any) {
-			addToast('error', error.message)
-		}
-	},
-})
+const checklists = ref([...props.item.checklists])
 watch(
 	() => props.item.checklists,
-	() => (checklists.value = props.item.checklists)
+	newVal => (checklists.value = newVal)
 )
 const completedItems = computed(() => checklists.value.filter(e => e.completed))
 const completedPercent = computed(() => {
 	if (!checklists.value.length) return 0
 	return Math.ceil((completedItems.value.length / checklists.value.length) * 100)
 })
-const completedText = computed(() => `${completedItems.value.length}/${checklists.value.length}`)
 const content = ref('')
 const adding = ref(false)
 const drag = ref(false)
@@ -63,6 +46,19 @@ function onItemUpdated(item: ChecklistItem) {
 	})
 	task.fetchTasks() // @TODO: consider to emit a event or fetch new items
 }
+
+async function onDragEnd() {
+	drag.value = false
+	// Update order
+	try {
+		checklists.value.forEach((item, index) => {
+			item.order = index
+		})
+		await task.upsertChecklistItems(checklists.value)
+	} catch (error: any) {
+		addToast('error', error.message)
+	}
+}
 </script>
 <template>
 	<div class="mb-2 flex items-center gap-3">
@@ -71,8 +67,8 @@ function onItemUpdated(item: ChecklistItem) {
 			<div
 				class="absolute h-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full transition-all"
 				:style="{ width: `${completedPercent}%` }"
-			></div>
-			<div class="h-2 w-full bg-gray-200 rounded-full"></div>
+			/>
+			<div class="h-2 w-full bg-gray-200 rounded-full" />
 		</div>
 	</div>
 	<div v-if="checklists.length">
@@ -93,15 +89,15 @@ function onItemUpdated(item: ChecklistItem) {
 			}"
 			:group="{ name: 'checklist', pull: true, put: true }"
 			@start="drag = true"
-			@end="drag = false"
+			@end="onDragEnd"
 		>
 			<template #item="{ element }">
-				<TaskChecklistItem :item="element" :key="element.id" @updated="onItemUpdated" @deleted="onItemDeleted" />
+				<TaskChecklistItem :key="element.id" :item="element" @updated="onItemUpdated" @deleted="onItemDeleted" />
 			</template>
 		</Draggable>
 	</div>
 	<div class="py-1 flex items-center gap-2">
-		<div class="w-[13px] h-[13px] rounded-sm border border-dotted border-gray-500"></div>
+		<div class="w-[13px] h-[13px] rounded-sm border border-dotted border-gray-500" />
 		<input
 			v-model.trim="content"
 			class="md:text-sm w-full outline-none transition text-gray-600"

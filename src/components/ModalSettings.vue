@@ -61,22 +61,26 @@ const currentTab = ref('account')
 		<div class="flex">
 			<div class="bg-gray-100 p-4 rounded-l-lg space-y-6 md:min-w-[180px]">
 				<div v-for="{ section, tabs } in tabGroup" :key="section">
-					<div class="hidden md:block text-xs font-medium text-gray-500 my-2">{{ section }}</div>
+					<div class="hidden md:block text-xs font-medium text-gray-500 my-2">
+						{{ section }}
+					</div>
 					<div class="space-y-1">
 						<div
 							v-for="{ icon, text, id } in tabs"
-							@click="currentTab = id"
+							:key="id"
 							:class="[
 								currentTab === id ? 'bg-gray-200 font-medium' : '',
 								'hover:bg-gray-200 rounded px-2 py-1 -mx-2 transition',
 							]"
 							role="button"
 							tabindex="0"
-							:key="id"
+							@click="currentTab = id"
 						>
 							<div class="flex items-center gap-2 text-sm text-gray-700">
 								<component :is="icon" size="16" />
-								<div class="hidden md:block">{{ text }}</div>
+								<div class="hidden md:block">
+									{{ text }}
+								</div>
 							</div>
 						</div>
 					</div>

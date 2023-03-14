@@ -14,19 +14,17 @@ const isSigningUp = ref(false)
 
 async function onSubmit() {
 	isSigningUp.value = true
-	try {
-		const { data, error } = await supabase.auth.signUp({
-			email: form.value.email,
-			password: form.value.password,
-			options: {
-				data: {
-					firstName: form.value.firstName,
-					lastName: form.value.lastName,
-				},
+	const { error } = await supabase.auth.signUp({
+		email: form.value.email,
+		password: form.value.password,
+		options: {
+			data: {
+				firstName: form.value.firstName,
+				lastName: form.value.lastName,
 			},
-		})
-		if (error) throw error
-	} catch (error: any) {
+		},
+	})
+	if (error) {
 		addToast('error', error.message)
 	}
 	isSigningUp.value = false

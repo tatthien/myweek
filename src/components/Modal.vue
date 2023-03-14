@@ -58,6 +58,6 @@ function close() {
 				<slot />
 			</div>
 		</div>
-		<div class="absolute inset-0" @click="close"></div>
+		<div class="absolute inset-0" @click="close" />
 	</div>
 </template>

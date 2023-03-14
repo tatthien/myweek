@@ -12,13 +12,11 @@ const isSigningIn = ref(false)
 
 async function onSubmit() {
 	isSigningIn.value = true
-	try {
-		const { data, error } = await supabase.auth.signInWithPassword({
-			email: form.value.email,
-			password: form.value.password,
-		})
-		if (error) throw error
-	} catch (error: any) {
+	const { error } = await supabase.auth.signInWithPassword({
+		email: form.value.email,
+		password: form.value.password,
+	})
+	if (error) {
 		addToast('error', error.message)
 	}
 	isSigningIn.value = false
@@ -43,7 +41,7 @@ async function onSubmit() {
 					type="password"
 					label="Password"
 					placeholder="••••••••"
-					validation="required"
+					validation="required|length:6"
 				/>
 				<div>
 					<WButton type="submit" full :loading="isSigningIn"> Sign in </WButton>

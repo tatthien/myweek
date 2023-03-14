@@ -50,7 +50,7 @@ async function updatePassword() {
 				</div>
 			</div>
 			<div>
-				<WButton type="submit" size="sm" :loading="isUpdatingProfile">Save</WButton>
+				<WButton type="submit" size="sm" :loading="isUpdatingProfile"> Save </WButton>
 			</div>
 		</FormKit>
 	</div>
@@ -73,7 +73,7 @@ async function updatePassword() {
 				validation="required|confirm"
 			/>
 			<div>
-				<WButton type="submit" size="sm" :loading="isUpdatingPassword">Update password</WButton>
+				<WButton type="submit" size="sm" :loading="isUpdatingPassword"> Update password </WButton>
 			</div>
 		</FormKit>
 	</div>

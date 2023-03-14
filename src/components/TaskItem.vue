@@ -1,3 +1,53 @@
+<script lang="ts" setup>
+import { computed, ref, watch } from 'vue'
+import { Task } from '@/types'
+import ModalEditTask from '@/components/ModalEditTask.vue'
+import Dropdown from '@/components/Dropdown.vue'
+import DropdownItem from '@/components/DropdownItem.vue'
+import { useTasks } from '@/stores/task'
+import {
+	IconCheckbox,
+	IconAlignJustified,
+	IconTrash,
+	IconEdit,
+	IconCircleCheck,
+	IconCircleCheckFilled,
+	IconDots,
+} from '@tabler/icons-vue'
+
+const store = useTasks()
+
+const props = defineProps<{
+	item: Task
+}>()
+const openModal = ref(false)
+const styles = computed(() => {
+	return {
+		lineHeight: '22px',
+		background: props.item.color,
+	}
+})
+const title = ref(props.item.title)
+
+watch(
+	() => props.item,
+	() => (title.value = props.item.title)
+)
+
+const commpletedChecklistItems = computed(() => props.item.checklists.filter(e => e.completed))
+const completedText = computed(() => {
+	return `${commpletedChecklistItems.value.length}/${props.item.checklists.length}`
+})
+const showSubInfo = computed(() => props.item.description || props.item.checklists.length)
+
+function changeStatus(status: string) {
+	store.update(props.item.id, { status })
+}
+
+async function archive() {
+	await store.delete(props.item.id)
+}
+</script>
 <template>
 	<div
 		class="relative group px-2 py-2 bg-white rounded-md border border-gray-200 shadow-sm cursor-pointer select-none hover:bg-gray-50"
@@ -53,56 +103,3 @@
 		</Teleport>
 	</div>
 </template>
-
-<script lang="ts" setup>
-import { computed, ref, watch } from 'vue'
-import { Task } from '@/types'
-import ModalEditTask from '@/components/ModalEditTask.vue'
-import Dropdown from '@/components/Dropdown.vue'
-import DropdownItem from '@/components/DropdownItem.vue'
-import { useTasks } from '@/stores/task'
-import { useUser } from '@/stores/user'
-import {
-	IconCheckbox,
-	IconAlignJustified,
-	IconTrash,
-	IconEdit,
-	IconCircleCheck,
-	IconCircleCheckFilled,
-	IconDots,
-} from '@tabler/icons-vue'
-
-const store = useTasks()
-
-const props = defineProps<{
-	item: Task
-}>()
-const emit = defineEmits(['submit'])
-const openModal = ref(false)
-const styles = computed(() => {
-	return {
-		lineHeight: '22px',
-		background: props.item.color,
-	}
-})
-const title = ref(props.item.title)
-
-watch(
-	() => props.item,
-	() => (title.value = props.item.title)
-)
-
-const commpletedChecklistItems = computed(() => props.item.checklists.filter(e => e.completed))
-const completedText = computed(() => {
-	return `${commpletedChecklistItems.value.length}/${props.item.checklists.length}`
-})
-const showSubInfo = computed(() => props.item.description || props.item.checklists.length)
-
-function changeStatus(status: string) {
-	store.update(props.item.id, { status })
-}
-
-async function archive() {
-	await store.delete(props.item.id)
-}
-</script>

@@ -8,7 +8,7 @@ import { useTasks } from '@/stores/task'
 import { addToast } from '@/composables/toast'
 import { format, parseISO } from 'date-fns'
 import isEqual from 'lodash/isEqual'
-import { Calendar, DatePicker } from 'v-calendar'
+import { DatePicker } from 'v-calendar'
 
 const props = withDefaults(
 	defineProps<{
@@ -74,7 +74,7 @@ async function onSubmit() {
 }
 </script>
 <template>
-	<Modal v-if="openModal" title="Edit task" :open="openModal" @close="emit('close')" :header="false">
+	<Modal v-if="openModal" title="Edit task" :open="openModal" :header="false" @close="emit('close')">
 		<div class="p-6">
 			<form @submit.prevent="onSubmit">
 				<div class="mb-4">
@@ -108,7 +108,7 @@ async function onSubmit() {
 								<IconCalendar size="16" />
 								Date
 							</label>
-							<div class="relative" v-click-outside="() => (showCalendar = false)">
+							<div v-click-outside="() => (showCalendar = false)" class="relative">
 								<button
 									type="button"
 									class="text-sm hover:bg-gray-100 transition px-2 rounded-md h-[32px] border border-transparent focus:ring focus:ring-3 focus:ring-gray-300 focus:border-gray-400"
@@ -141,9 +141,9 @@ async function onSubmit() {
 						/>
 					</div>
 					<div class="flex items-center gap-2 mt-4">
-						<WButton type="submit" :loading="isSaving" size="sm" :disabled="!isFormChanged">{{
-							submitButtonText
-						}}</WButton>
+						<WButton type="submit" :loading="isSaving" size="sm" :disabled="!isFormChanged">
+							{{ submitButtonText }}
+						</WButton>
 					</div>
 					<div class="mt-6">
 						<h2 class="font-medium mb-4">Checklist</h2>

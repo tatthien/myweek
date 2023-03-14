@@ -6,6 +6,7 @@ import { firstDateOfWeek, goToNextWeek, goToPrevWeek, jumpToCurrentWeek } from '
 import { supabase } from '@/composables/supabase'
 import { useUser } from '@/stores/user'
 import ModalSettings from '@/components/ModalSettings.vue'
+import { addToast } from '@/composables/toast'
 
 const user = useUser()
 const currentMonth = computed(() => format(firstDateOfWeek.value, 'MMM Y'))
@@ -20,6 +21,9 @@ function openSettings() {
 
 async function signOut() {
 	const { error } = await supabase.auth.signOut()
+	if (error) {
+		addToast('error', error.message)
+	}
 }
 </script>
 <template>
