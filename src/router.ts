@@ -4,6 +4,8 @@ import { useUser } from '@/stores/user'
 const Home = () => import('./pages/Home.vue')
 const Signin = () => import('./pages/Signin.vue')
 const Signup = () => import('./pages/Signup.vue')
+const ForgotPassword = () => import('./pages/ForgotPassword.vue')
+const ResetPassword = () => import('./pages/ResetPassword.vue')
 
 const routes = [
 	{
@@ -26,6 +28,22 @@ const routes = [
 		name: 'signup',
 		path: '/sign-up',
 		component: Signup,
+		meta: {
+			authPage: true,
+		},
+	},
+	{
+		name: 'forgot-password',
+		path: '/forgot-password',
+		component: ForgotPassword,
+		meta: {
+			authPage: true,
+		},
+	},
+	{
+		name: 'reset-password',
+		path: '/reset-password',
+		component: ResetPassword,
 		meta: {
 			authPage: true,
 		},

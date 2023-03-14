@@ -2,31 +2,33 @@
 import { ref } from 'vue'
 import { supabase } from '@/composables/supabase'
 import { addToast } from '@/composables/toast'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const form = ref({
 	email: '',
-	password: '',
 })
-
-const isSigningIn = ref(false)
+const loading = ref(false)
 
 async function onSubmit() {
-	isSigningIn.value = true
-	const { error } = await supabase.auth.signInWithPassword({
-		email: form.value.email,
-		password: form.value.password,
+	loading.value = true
+	const { error } = await supabase.auth.resetPasswordForEmail(form.value.email, {
+		redirectTo: `${import.meta.env.VITE_BASE_URL}/reset-password`,
 	})
 	if (error) {
 		addToast('error', error.message)
+	} else {
+		addToast('success', 'Password reset email sent successfully! Please check your email')
+		router.push({ name: 'signin' })
 	}
-	isSigningIn.value = false
+	loading.value = false
 }
 </script>
 <template>
 	<div class="flex items-center justify-center h-full bg-gray-50">
 		<div class="mx-4 w-[400px] bg-white border border-gray-200 rounded-lg p-6">
 			<div class="mb-4">
-				<h1 class="text-xl font-medium">Welcome back</h1>
+				<h1 class="text-xl font-medium">Reset your password</h1>
 			</div>
 			<FormKit type="form" :actions="false" :incomplete-message="false" novalidate @submit="onSubmit">
 				<div class="mb-4">
@@ -38,22 +40,13 @@ async function onSubmit() {
 						validation="required|email"
 					/>
 				</div>
-				<div class="mb-4">
-					<FormKit
-						v-model="form.password"
-						type="password"
-						label="Password"
-						placeholder="••••••••"
-						validation="required|length:6"
-					/>
-				</div>
 				<div>
-					<WButton type="submit" full :loading="isSigningIn"> Sign in </WButton>
+					<WButton type="submit" full :loading="loading"> Send reset email </WButton>
 				</div>
 			</FormKit>
-			<div class="text-center mt-8 text-sm">
-				<router-link to="/forgot-password" class="underline mr-4">Forgot password?</router-link>
-				<router-link to="/sign-up" class="underline"> Sign up now </router-link>
+			<div class="text-center text-sm mt-8">
+				<span>Have an account? </span>
+				<router-link to="/sign-in" class="underline"> Sign in now </router-link>
 			</div>
 		</div>
 	</div>

@@ -12,7 +12,12 @@ export default defineConfig({
 		rollupOptions: {
 			output: {
 				manualChunks: {
-					auth: ['./src/pages/Signin.vue', './src/pages/Signup.vue'],
+					auth: [
+						'./src/pages/Signin.vue',
+						'./src/pages/Signup.vue',
+						'./src/pages/ForgotPassword.vue',
+						'./src/pages/ResetPassword.vue',
+					],
 					home: ['./src/pages/Home.vue'],
 				},
 			},

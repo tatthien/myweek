@@ -11,6 +11,8 @@ supabase.auth.onAuthStateChange((event, session) => {
 	if (event === 'SIGNED_OUT') {
 		store.setUser(null)
 		router.push({ name: 'signin' })
+	} else if (event === 'PASSWORD_RECOVERY') {
+		router.push({ name: 'reset-password' })
 	} else {
 		store.setUser(session.user)
 		router.push({ name: 'home' })
