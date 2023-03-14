@@ -37,10 +37,11 @@ async function updatePassword() {
 }
 </script>
 <template>
+	<div class="mb-4 pb-2 border-b border-gray-300 block md:hidden">My account</div>
 	<div class="mb-8">
 		<div class="font-medium text-sm mb-4">Profile</div>
 		<FormKit type="form" :actions="false" :incomplete-message="false" novalidate @submit="updateProfile">
-			<div class="flex items-center gap-3">
+			<div class="md:flex md:items-center md:gap-3">
 				<div class="flex-1">
 					<FormKit v-model.trim="profile.firstName" type="text" label="First name" placeholder="First name" />
 				</div>

@@ -4,6 +4,7 @@ import Modal from '@/components/Modal.vue'
 import { IconUser, IconColorSwatch, IconTag } from '@tabler/icons-vue'
 import SettingsMyAccount from '@/components/settings/SettingsMyAccount.vue'
 import SettingsLabels from '@/components/settings/SettingsLabels.vue'
+import SettingsAppearance from '@/components/settings/SettingsAppearance.vue'
 
 const props = withDefaults(
 	defineProps<{
@@ -60,7 +61,7 @@ const currentTab = ref('account')
 		<div class="flex">
 			<div class="bg-gray-100 p-4 rounded-l-lg space-y-6 md:min-w-[180px]">
 				<div v-for="{ section, tabs } in tabGroup" :key="section">
-					<div class="text-xs font-medium text-gray-500 my-2">{{ section }}</div>
+					<div class="hidden md:block text-xs font-medium text-gray-500 my-2">{{ section }}</div>
 					<div class="space-y-1">
 						<div
 							v-for="{ icon, text, id } in tabs"
@@ -75,7 +76,7 @@ const currentTab = ref('account')
 						>
 							<div class="flex items-center gap-2 text-sm text-gray-700">
 								<component :is="icon" size="16" />
-								<div>{{ text }}</div>
+								<div class="hidden md:block">{{ text }}</div>
 							</div>
 						</div>
 					</div>
@@ -83,7 +84,8 @@ const currentTab = ref('account')
 			</div>
 			<div class="p-4 flex-1">
 				<SettingsMyAccount v-if="currentTab === 'account'" />
-				<SettingsLabels v-if="currentTab === 'label'" />
+				<SettingsAppearance v-if="currentTab === 'appearance'" />
+				<SettingsLabels v-if="currentTab === 'labels'" />
 			</div>
 		</div>
 	</Modal>
