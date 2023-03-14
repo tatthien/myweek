@@ -3,7 +3,7 @@ import { startOfWeek, addDays, subDays } from 'date-fns'
 
 export const monday = startOfWeek(new Date(), { weekStartsOn: 1 })
 export const firstDateOfWeek = ref(monday)
-export const weekdays = computed(() => Array.from(Array(7)).map((_, i) => addDays(firstDateOfWeek.value, i)))
+export const weekdays = computed(() => Array.from(Array(5)).map((_, i) => addDays(firstDateOfWeek.value, i)))
 export const saturday = computed(() => addDays(firstDateOfWeek.value, 5))
 export const sunday = computed(() => addDays(firstDateOfWeek.value, 6))
 

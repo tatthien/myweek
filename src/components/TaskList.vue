@@ -1,11 +1,11 @@
 <template>
 	<div :id="`list-${listId}`">
-		<div class="bg-gray-100 rounded-md px-2">
+		<div class="bg-gray-100 border border-gray-300 rounded-md px-2">
 			<header class="flex items-center gap-2 py-2">
 				<slot name="header">
 					<span class="font-semibold">{{ dateOfMonth }}.{{ month }}</span>
 					<span class="text-gray-400">{{ dateOfWeek }}</span>
-					<span v-if="isToday" class="w-2 h-2 bg-blue-400 rounded-full" />
+					<span v-if="isToday" class="w-2 h-2 bg-purple-400 rounded-full" />
 				</slot>
 			</header>
 			<div>

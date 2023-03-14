@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="relative group px-2 py-2 bg-white rounded-md border border-gray-150 cursor-pointer select-none hover:bg-gray-50"
+		class="relative group px-2 py-2 bg-white rounded-md border border-gray-200 shadow-sm cursor-pointer select-none hover:bg-gray-50"
 		tabindex="0"
 		@keypress.enter.prevent="openModal = true"
 	>
