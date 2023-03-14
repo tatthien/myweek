@@ -1,12 +1,12 @@
 {
 	"background_color": "#ffffff",
-	"description": "MyWeek is your weekly planner",
+	"description": "Enhance your productivity, manage your stuff in a week calendar view",
 	"dir": "ltr",
 	"display": "standalone",
 	"name": "MyWeek",
+	"short_name": "MyWeek",
 	"orientation": "any",
 	"scope": "/",
-	"short_name": "MyWeek",
 	"start_url": "/",
 	"theme_color": "#ffffff",
 	"categories": ["productivity"],
@@ -15,6 +15,10 @@
 		{
 			"src": "img/icon-192.png",
 			"sizes": "192x192"
+		},
+		{
+			"src": "img/icon-512.png",
+			"sizes": "512x512"
 		}
 	],
 	"shortcuts": [],
