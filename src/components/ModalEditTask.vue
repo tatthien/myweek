@@ -116,7 +116,10 @@ async function onSubmit() {
 								>
 									{{ dateText }}
 								</button>
-								<div v-if="showCalendar" class="absolute z-10 mt-1">
+								<div
+									v-if="showCalendar"
+									class="absolute z-10 mt-1 right-1/2 translate-x-1/2 md:left-0 md:translate-x-0"
+								>
 									<DatePicker
 										v-model="form.date"
 										mode="date"
