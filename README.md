@@ -1,3 +1,5 @@
+![share-image](https://user-images.githubusercontent.com/72242664/224998833-a36e1546-84bd-4efc-bb20-e92e9c7dc689.png)
+
 # MyWeek
 
 MyWeek is a weekly planner & to-do list app. It aims to enhance your productivity, manage your stuff in a week calendar view.
