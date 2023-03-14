@@ -1,11 +1,10 @@
 <template>
 	<div
-		class="group px-2 py-2 bg-white rounded-md border border-gray-150 cursor-pointer select-none hover:bg-gray-50"
+		class="relative group px-2 py-2 bg-white rounded-md border border-gray-150 cursor-pointer select-none hover:bg-gray-50"
 		tabindex="0"
-		@click="openModal = true"
 		@keypress.enter.prevent="openModal = true"
 	>
-		<div class="relative">
+		<div @click="openModal = true">
 			<div class="flex gap-2 box-content">
 				<IconCircleCheckFilled v-if="item.status === 'done'" size="16" class="text-gray-400 shrink-0 mt-[2.5px]" />
 				<span class="block" :style="styles" :class="[item.status === 'done' ? 'text-gray-400' : '']">
@@ -19,35 +18,35 @@
 					{{ completedText }}
 				</div>
 			</div>
-			<div class="absolute top-0 right-1">
-				<Dropdown>
-					<template #button>
-						<span
-							class="hidden group-hover:block border border-gray-200 shadow rounded bg-white text-gray-400 hover:text-gray-900"
-						>
-							<IconDots size="16" />
-						</span>
-					</template>
-					<DropdownItem @click="openModal = true">
-						<div class="flex item-centers gap-2">
-							<IconEdit size="16" />
-							Edit
-						</div>
-					</DropdownItem>
-					<DropdownItem @click="changeStatus(item.status === 'active' ? 'done' : 'active')">
-						<div class="flex items-center gap-2">
-							<IconCircleCheck size="16" />
-							Mark as {{ item.status === 'active' ? 'done' : 'active' }}
-						</div>
-					</DropdownItem>
-					<DropdownItem @click="archive">
-						<div class="flex items-center gap-2">
-							<IconTrash size="16" class="text-red-400" />
-							Delete
-						</div>
-					</DropdownItem>
-				</Dropdown>
-			</div>
+		</div>
+		<div class="absolute top-2 right-2">
+			<Dropdown>
+				<template #button>
+					<span
+						class="hidden group-hover:block border border-gray-200 shadow rounded bg-white text-gray-400 hover:text-gray-900"
+					>
+						<IconDots size="16" />
+					</span>
+				</template>
+				<DropdownItem @click="openModal = true">
+					<div class="flex item-centers gap-2">
+						<IconEdit size="16" />
+						Edit
+					</div>
+				</DropdownItem>
+				<DropdownItem @click="changeStatus(item.status === 'active' ? 'done' : 'active')">
+					<div class="flex items-center gap-2">
+						<IconCircleCheck size="16" />
+						Mark as {{ item.status === 'active' ? 'done' : 'active' }}
+					</div>
+				</DropdownItem>
+				<DropdownItem @click="archive">
+					<div class="flex items-center gap-2">
+						<IconTrash size="16" class="text-red-400" />
+						Delete
+					</div>
+				</DropdownItem>
+			</Dropdown>
 		</div>
 		<Teleport to="body">
 			<ModalEditTask :item="item" :open="openModal" @close="openModal = false" />

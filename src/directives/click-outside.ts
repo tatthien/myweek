@@ -1,23 +1,17 @@
-const stopPropation = (e: Event): void => {
-	e.stopPropagation()
-}
-
-let triggerEvent: () => void
-
 export default {
-	mounted(el: Element, binding: any) {
-		if (typeof binding.value !== 'function') {
-			throw Error(`[v-click-outside] ${binding.value} is not a function`)
+	beforeMount(el, binding) {
+		el._triggerEvent = (event: Event) => {
+			console.log('x')
+			if (el === event.target || event.composedPath().includes(el)) {
+				return
+			}
+			if (typeof binding.value === 'function') {
+				binding.value()
+			}
 		}
-
-		triggerEvent = () => {
-			binding.value()
-		}
-		el.addEventListener('click', stopPropation)
-		document.addEventListener('click', triggerEvent)
+		document.addEventListener('click', el._triggerEvent)
 	},
-	unmounted(el: Element) {
-		el.removeEventListener('click', stopPropation)
-		document.addEventListener('click', triggerEvent)
+	unmounted(el) {
+		document.removeEventListener('click', el._triggerEvent)
 	},
 }

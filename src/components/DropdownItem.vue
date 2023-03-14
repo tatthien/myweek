@@ -17,7 +17,7 @@ function onClick() {
 			class="block text-sm mx-2 px-2 py-1.5 bg-transparent text-gray-500 whitespace-nowrap rounded hover:bg-gray-100 hover:text-gray-900"
 			@click="onClick"
 		>
-			<slot></slot>
+			<slot />
 		</a>
 	</li>
 </template>

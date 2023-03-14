@@ -26,7 +26,7 @@ const colorClasses = computed(() => {
 		case 'secondary':
 			return 'bg-white text-gray-900 border border-gray-300 shadow'
 		default:
-			return 'bg-blue-600 text-white hover:bg-blue-700'
+			return 'bg-gray-900 text-white hover:bg-gray-800 focus:ring focus:ring-gray-300 focus:ring-3'
 	}
 })
 

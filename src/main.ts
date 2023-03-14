@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { createPinia } from 'pinia'
 import { router } from './router'
-import './assets/css/app.css'
+import 'v-calendar/dist/style.css'
 import clickOutside from './directives/click-outside'
 import autoResize from './directives/auto-resize'
 import focus from './directives/focus'
@@ -10,6 +10,7 @@ import WButton from './components/WButton.vue'
 import { plugin, defaultConfig } from '@formkit/vue'
 import formKitConfig from '../formkit.config'
 import { inject } from '@vercel/analytics'
+import './assets/css/app.css'
 
 const app = createApp(App)
 app.use(createPinia())

@@ -18,13 +18,15 @@ function hide() {
 provide('dropdown_context', { show, hide })
 </script>
 <template>
-	<div class="relative z-10" v-click-outside="hide">
-		<button @click.stop="open = !open" class="inline-flex">
+	<div class="relative" v-click-outside="hide">
+		<button @click="show" class="inline-flex" :aria-expanded="open" type="button">
 			<slot name="button">{{ props.text }}</slot>
 		</button>
 		<ul
 			v-if="open"
-			class="absolute mt-6 py-2 min-w-[140px] top-0 right-0 bg-white border border-gray-150 rounded-md shadow-lg"
+			role="menu"
+			tabindex="-1"
+			class="absolute mt-6 py-2 min-w-[140px] top-0 right-0 bg-white border border-gray-150 rounded-md shadow-lg z-[1000]"
 		>
 			<slot></slot>
 		</ul>

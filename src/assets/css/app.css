@@ -11,3 +11,7 @@ select {
 	appearance: none;
 	padding-right: 2rem !important;
 }
+
+.vc-container {
+	font-family: 'Inter';
+}

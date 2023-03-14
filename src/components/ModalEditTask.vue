@@ -6,8 +6,9 @@ import { Task } from '@/types'
 import { ref, watch, computed } from 'vue'
 import { useTasks } from '@/stores/task'
 import { addToast } from '@/composables/toast'
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import isEqual from 'lodash/isEqual'
+import { Calendar, DatePicker } from 'v-calendar'
 
 const props = withDefaults(
 	defineProps<{
@@ -41,7 +42,21 @@ const isFormChanged = computed(() => {
 	return !isEqual(form.value, props.item)
 })
 const submitButtonText = computed(() => (isFormChanged.value ? 'Save all changes' : 'All changes saved'))
-
+const dateText = computed(() => {
+	let d = form.value.date
+	if (typeof d === 'string') {
+		d = parseISO(d)
+	}
+	return format(d, 'MMM dd, yyyy')
+})
+const showCalendar = ref(false)
+const calendarAttrs = ref([
+	{
+		key: 'today',
+		dot: true,
+		dates: new Date(),
+	},
+])
 async function onSubmit() {
 	isSaving.value = true
 	try {
@@ -73,32 +88,44 @@ async function onSubmit() {
 				</div>
 				<div>
 					<div class="space-y-2">
-						<div class="grid grid-cols-[100px_1fr] items-center">
-							<label class="md:text-sm text-gray-600 inline-flex items-center gap-2">
+						<div class="flex items-center">
+							<label class="w-[100px] md:text-sm text-gray-600 inline-flex items-center gap-2">
 								<IconPlayerPlayFilled size="16" />
 								Status
 							</label>
 							<div>
 								<select
 									v-model="form.status"
-									class="md:text-sm w-auto rounded-md px-2 h-[32px] outline-none hover:bg-gray-100 transition cursor-pointer"
+									class="md:text-sm w-auto rounded-md px-2 h-[32px] outline-none hover:bg-gray-100 transition cursor-pointer focus:ring focus:ring-3 focus:ring-gray-300 focus:border focus:border-gray-400"
 								>
 									<option value="active">Active</option>
 									<option value="done">Done</option>
 								</select>
 							</div>
 						</div>
-						<div class="grid grid-cols-[100px_1fr] items-center">
-							<label class="md:text-sm text-gray-600 inline-flex items-center gap-2">
+						<div class="flex items-center">
+							<label class="w-[100px] md:text-sm text-gray-600 inline-flex items-center gap-2">
 								<IconCalendar size="16" />
 								Date
 							</label>
-							<div>
-								<input
-									v-model="form.date"
-									type="date"
-									class="md:text-sm w-auto rounded-md px-2 h-[32px] outline-none hover:bg-gray-100 transition"
-								/>
+							<div class="relative" v-click-outside="() => (showCalendar = false)">
+								<button
+									type="button"
+									class="text-sm hover:bg-gray-100 transition px-2 rounded-md h-[32px] border border-transparent focus:ring focus:ring-3 focus:ring-gray-300 focus:border-gray-400"
+									@click="showCalendar = !showCalendar"
+								>
+									{{ dateText }}
+								</button>
+								<div v-if="showCalendar" class="absolute z-10 mt-1">
+									<DatePicker
+										v-model="form.date"
+										mode="date"
+										is-required
+										:first-day-of-week="2"
+										:attributes="calendarAttrs"
+										@dayclick="showCalendar = false"
+									/>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -106,7 +133,7 @@ async function onSubmit() {
 						<textarea
 							v-model.trim="form.description"
 							v-auto-resize="80"
-							class="md:text-sm px-2 py-2 overflow-y-hidden resize-none border border-transparent bg-gray-100 focus:bg-white focus:border-gray-400 transition rounded-md w-full outline-none"
+							class="md:text-sm px-2 py-2 overflow-y-hidden resize-none border border-transparent bg-gray-100 focus:bg-white focus:border-gray-400 transition rounded-md w-full outline-none border border-transparent focus:ring focus:ring-3 focus:ring-gray-300 focus:border-gray-400"
 							placeholder="Add a more detailed description..."
 						/>
 					</div>
