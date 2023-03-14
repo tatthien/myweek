@@ -8,7 +8,7 @@ export default {
 				fieldset: 'max-w-md border border-gray-400 rounded px-2 pb-1',
 				help: 'text-xs text-gray-500',
 				inner: 'formkit-disabled:bg-gray-200 formkit-disabled:cursor-not-allowed formkit-disabled:pointer-events-none',
-				input: 'appearance-none bg-transparent focus:outline-none focus:ring-0 focus:shadow-none',
+				input: 'appearance-none bg-transparent focus:outline-none focus:shadow-none',
 				label: 'block mb-1 text-gray-600 text-sm',
 				legend: 'font-bold text-sm',
 				loaderIcon: 'inline-flex items-center w-4 text-gray-600 animate-spin',
