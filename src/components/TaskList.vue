@@ -153,6 +153,14 @@ const dragOptions = {
 
 <style>
 .ghost {
-	opacity: 0.5;
+	@apply bg-gray-200 border border-dashed border-gray-400;
+}
+
+.ghost:hover {
+	@apply bg-gray-200;
+}
+
+.ghost * {
+	opacity: 0;
 }
 </style>
