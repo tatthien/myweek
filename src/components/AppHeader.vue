@@ -1,20 +1,22 @@
 <script lang="ts" setup>
 import { format } from 'date-fns'
-import { computed, ref } from 'vue'
-import { IconSettings, IconSquareArrowRight, IconChevronRight, IconChevronLeft } from '@tabler/icons-vue'
-import { firstDateOfWeek, goToNextWeek, goToPrevWeek, jumpToCurrentWeek } from '@/composables/date'
+import { computed, ref, watch } from 'vue'
+import { IconSettings, IconSquareArrowRight, IconChevronRight, IconChevronLeft, IconCalendar } from '@tabler/icons-vue'
+import { firstDateOfWeek, goToNextWeek, goToPrevWeek, jumpToCurrentWeek, setFirstDateOfWeek } from '@/composables/date'
 import { supabase } from '@/composables/supabase'
 import { useUser } from '@/stores/user'
 import ModalSettings from '@/components/ModalSettings.vue'
 import { addToast } from '@/composables/toast'
+import { DatePicker } from 'v-calendar'
 
 const user = useUser()
 const currentMonth = computed(() => format(firstDateOfWeek.value, 'MMM Y'))
 const showDropdown = ref(false)
 const openModal = ref(false)
+const showCalendar = ref(false)
+const date = ref(new Date())
 
 function openSettings() {
-	// @TODO: using Dropdown component
 	openModal.value = true
 	showDropdown.value = false
 }
@@ -25,6 +27,13 @@ async function signOut() {
 		addToast('error', error.message)
 	}
 }
+
+watch(
+	() => date.value,
+	newVal => {
+		setFirstDateOfWeek(newVal)
+	}
+)
 </script>
 <template>
 	<header class="flex items-center justify-between">
@@ -33,6 +42,22 @@ async function signOut() {
 				<a href="#" @click="jumpToCurrentWeek">{{ currentMonth }}</a>
 			</h1>
 			<div class="flex items-center gap-2">
+				<div v-click-outside="() => (showCalendar = false)" class="relative inline-flex">
+					<button
+						class="inline-flex rounded text-gray-400 hover:bg-gray-200 hover:text-gray-900 transition"
+						@click="showCalendar = !showCalendar"
+					>
+						<IconCalendar size="24" />
+					</button>
+					<DatePicker
+						v-if="showCalendar"
+						v-model="date"
+						class="absolute z-10 top-full left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0"
+						is-required
+						:first-day-of-week="2"
+						@dayclick="showCalendar = false"
+					/>
+				</div>
 				<button
 					class="inline-flex rounded text-gray-400 hover:bg-gray-200 hover:text-gray-900 transition"
 					@click="goToPrevWeek"

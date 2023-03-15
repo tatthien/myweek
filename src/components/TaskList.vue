@@ -99,7 +99,7 @@ const dragOptions = {
 </script>
 
 <template>
-	<div class="task-list" :id="`list-${listId}`">
+	<div :id="`list-${listId}`" class="task-list">
 		<div class="bg-gray-100 border border-gray-300 rounded-md px-2">
 			<header class="flex items-center gap-2 py-2">
 				<slot name="header">

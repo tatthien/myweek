@@ -1,7 +1,6 @@
 export default {
 	beforeMount(el, binding) {
 		el._triggerEvent = (event: Event) => {
-			console.log('x')
 			if (el === event.target || event.composedPath().includes(el)) {
 				return
 			}
