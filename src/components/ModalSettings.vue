@@ -39,11 +39,11 @@ const tabGroup = [
 	{
 		section: 'Settings',
 		tabs: [
-			{
-				icon: IconColorSwatch,
-				id: 'appearance',
-				text: 'Appearance',
-			},
+			/* { */
+			/* 	icon: IconColorSwatch, */
+			/* 	id: 'appearance', */
+			/* 	text: 'Appearance', */
+			/* }, */
 			{
 				icon: IconTag,
 				id: 'labels',
@@ -88,7 +88,6 @@ const currentTab = ref('account')
 			</div>
 			<div class="p-4 flex-1">
 				<SettingsMyAccount v-if="currentTab === 'account'" />
-				<SettingsAppearance v-if="currentTab === 'appearance'" />
 				<SettingsLabels v-if="currentTab === 'labels'" />
 			</div>
 		</div>
