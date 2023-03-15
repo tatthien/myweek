@@ -99,7 +99,7 @@ const dragOptions = {
 </script>
 
 <template>
-	<div :id="`list-${listId}`">
+	<div class="task-list" :id="`list-${listId}`">
 		<div class="bg-gray-100 border border-gray-300 rounded-md px-2">
 			<header class="flex items-center gap-2 py-2">
 				<slot name="header">
@@ -152,15 +152,15 @@ const dragOptions = {
 </template>
 
 <style>
-.ghost {
-	@apply bg-gray-200 border border-dashed border-gray-400;
+.task-list .ghost {
+	@apply bg-gray-200 border-dashed border-gray-400;
 }
 
-.ghost:hover {
+.task-list .ghost:hover {
 	@apply bg-gray-200;
 }
 
-.ghost * {
+.task-list .ghost * {
 	opacity: 0;
 }
 </style>
