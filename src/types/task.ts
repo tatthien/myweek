@@ -20,4 +20,6 @@ export interface ChecklistItem {
 	content: string
 	completed: boolean
 	order: number
+	user_id: string
+	task_id: string
 }

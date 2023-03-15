@@ -6,8 +6,8 @@ import { useTasks } from '@/stores/task'
 import TaskList from '@/components/TaskList.vue'
 import AppHeader from '@/components/AppHeader.vue'
 
-const store = useTasks()
-store.fetchTasks()
+const task = useTasks()
+task.fetchList()
 
 const grid = ref<HTMLElement>()
 

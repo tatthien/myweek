@@ -2,24 +2,24 @@
 import { ref } from 'vue'
 import { ChecklistItem } from '@/types'
 import { IconTrash } from '@tabler/icons-vue'
-import { useTasks } from '@/stores/task'
+import { useChecklist } from '@/stores/checklist'
 const props = defineProps<{
 	item: ChecklistItem
 }>()
 const emit = defineEmits(['updated', 'deleted'])
-const task = useTasks()
+const checklistStore = useChecklist()
 const editing = ref(false)
 const form = ref({
 	content: props.item.content,
 	completed: props.item.completed,
 })
 async function update() {
-	await task.updateChecklistItem(props.item.id, form.value)
+	await checklistStore.update(props.item.id, form.value)
 	emit('updated', { ...props.item, ...form.value })
 	editing.value = false
 }
 async function deleteItem() {
-	await task.deleteChecklistItem(props.item.id)
+	await checklistStore.delete(props.item.id)
 	emit('deleted', props.item)
 }
 </script>

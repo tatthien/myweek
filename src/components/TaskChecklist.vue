@@ -3,6 +3,7 @@ import { ref, watch, computed } from 'vue'
 import { Task, ChecklistItem } from '@/types'
 import { addToast } from '@/composables/toast'
 import { useTasks } from '@/stores/task'
+import { useChecklist } from '@/stores/checklist'
 import TaskChecklistItem from '@/components/TaskChecklistItem.vue'
 import Draggable from 'vuedraggable'
 
@@ -10,6 +11,7 @@ const props = defineProps<{
 	item: Task
 }>()
 const task = useTasks()
+const checklistStore = useChecklist()
 const checklists = ref([...props.item.checklists])
 watch(
 	() => props.item.checklists,
@@ -21,30 +23,34 @@ const completedPercent = computed(() => {
 	return Math.ceil((completedItems.value.length / checklists.value.length) * 100)
 })
 const content = ref('')
-const adding = ref(false)
 const drag = ref(false)
+
 async function addItem() {
-	adding.value = true
 	try {
-		const data = await task.addChecklistItem(props.item, content.value)
+		const data = await checklistStore.create({
+			content: content.value,
+			task_id: props.item.id,
+			user_id: props.item.user_id,
+			order: checklists.value.length + 1,
+		})
 		checklists.value.push(data[0])
+		task.fetchList()
 		content.value = ''
 	} catch (error: any) {
 		addToast('error', error.message)
 	}
-	adding.value = false
 }
 
 function onItemDeleted(item: ChecklistItem) {
 	checklists.value = checklists.value.filter(e => e.id !== item.id)
-	task.fetchTasks() // @TODO: consider to emit a event or fetch new items
+	task.fetchList()
 }
 
 function onItemUpdated(item: ChecklistItem) {
 	checklists.value = checklists.value.map(e => {
 		return e.id === item.id ? item : e
 	})
-	task.fetchTasks() // @TODO: consider to emit a event or fetch new items
+	task.fetchList()
 }
 
 async function onDragEnd() {
@@ -54,7 +60,7 @@ async function onDragEnd() {
 		checklists.value.forEach((item, index) => {
 			item.order = index
 		})
-		await task.upsertChecklistItems(checklists.value)
+		await checklistStore.upsert(checklists.value)
 	} catch (error: any) {
 		addToast('error', error.message)
 	}
@@ -65,7 +71,7 @@ async function onDragEnd() {
 		<div class="text-sm text-gray-400">{{ completedPercent }}%</div>
 		<div class="relative flex-1">
 			<div
-				class="absolute h-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full transition-all"
+				class="absolute h-2 bg-gradient-to-r from-gray-700 to-gray-900 rounded-full transition-all"
 				:style="{ width: `${completedPercent}%` }"
 			/>
 			<div class="h-2 w-full bg-gray-200 rounded-full" />
