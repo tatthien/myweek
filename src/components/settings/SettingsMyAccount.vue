@@ -41,7 +41,7 @@ async function updatePassword() {
 	<div class="mb-8">
 		<div class="font-medium text-sm mb-4">Profile</div>
 		<FormKit type="form" :actions="false" :incomplete-message="false" novalidate @submit="updateProfile">
-			<div class="md:flex md:items-center md:gap-3">
+			<div class="md:flex md:items-center md:gap-3 mb-4">
 				<div class="flex-1">
 					<FormKit v-model.trim="profile.firstName" type="text" label="First name" placeholder="First name" />
 				</div>
@@ -57,21 +57,25 @@ async function updatePassword() {
 	<div class="mb-8">
 		<div class="font-medium text-sm mb-4">Password</div>
 		<FormKit type="form" :actions="false" :incomplete-message="false" novalidate @submit="updatePassword">
-			<FormKit
-				v-model.trim="password"
-				type="password"
-				label="Password"
-				name="password"
-				placeholder="••••••••"
-				validation="required|length:6"
-			/>
-			<FormKit
-				type="password"
-				label="Confirm password"
-				name="password_confirm"
-				placeholder="••••••••"
-				validation="required|confirm"
-			/>
+			<div class="mb-4">
+				<FormKit
+					v-model.trim="password"
+					type="password"
+					label="Password"
+					name="password"
+					placeholder="••••••••"
+					validation="required|length:6"
+				/>
+			</div>
+			<div class="mb-4">
+				<FormKit
+					type="password"
+					label="Confirm password"
+					name="password_confirm"
+					placeholder="••••••••"
+					validation="required|confirm"
+				/>
+			</div>
 			<div>
 				<WButton type="submit" size="sm" :loading="isUpdatingPassword"> Update password </WButton>
 			</div>
