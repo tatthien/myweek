@@ -5,7 +5,10 @@ import ModalEditTask from '@/components/ModalEditTask.vue'
 import Dropdown from '@/components/Dropdown.vue'
 import DropdownItem from '@/components/DropdownItem.vue'
 import LabelItem from '@/components/LabelItem.vue'
+import FormSelectLabels from '@/components/FormSelectLabels.vue'
 import { useTasks } from '@/stores/task'
+import { useLabel } from '@/stores/label'
+import { supabase } from '@/composables/supabase'
 import {
 	IconCheckbox,
 	IconAlignJustified,
@@ -14,9 +17,12 @@ import {
 	IconCircleCheck,
 	IconCircleCheckFilled,
 	IconDots,
+	IconTag,
+	IconChevronRight,
 } from '@tabler/icons-vue'
 
 const store = useTasks()
+const labelStore = useLabel()
 
 const props = defineProps<{
 	item: Task
@@ -32,7 +38,10 @@ const title = ref(props.item.title)
 
 watch(
 	() => props.item,
-	() => (title.value = props.item.title)
+	newVal => {
+		title.value = newVal.title
+		selectedLabels.value = newVal.labels
+	}
 )
 
 const commpletedChecklistItems = computed(() => props.item.checklists.filter(e => e.completed))
@@ -41,12 +50,28 @@ const completedText = computed(() => {
 })
 const showSubInfo = computed(() => props.item.description || props.item.checklists.length)
 
+const selectedLabels = ref([...props.item.labels])
+
 function changeStatus(status: string) {
 	store.update(props.item.id, { status })
 }
 
 async function archive() {
 	await store.delete(props.item.id)
+}
+
+async function onSelectLabels(labels) {
+	await supabase.from('tasks_labels').delete().eq('task_id', props.item.id)
+	await supabase.from('tasks_labels').upsert(
+		labels.map(({ id }) => {
+			return {
+				task_id: props.item.id,
+				label_id: id,
+				user_id: props.item.user_id,
+			}
+		})
+	)
+	store.fetchList()
 }
 </script>
 <template>
@@ -100,6 +125,16 @@ async function archive() {
 						Mark as {{ item.status === 'active' ? 'done' : 'active' }}
 					</div>
 				</DropdownItem>
+				<DropdownItem class="relative menu-item">
+					<div class="flex items-center gap-2">
+						<IconTag size="16" />
+						<span class="flex-1">Labels</span>
+						<IconChevronRight size="16" />
+						<div class="child-menu absolute top-0 left-full min-w-full" @click.stop="false">
+							<FormSelectLabels v-model="selectedLabels" @select="onSelectLabels" />
+						</div>
+					</div>
+				</DropdownItem>
 				<DropdownItem @click="archive">
 					<div class="flex items-center gap-2">
 						<IconTrash size="16" class="text-red-400" />
@@ -113,3 +148,13 @@ async function archive() {
 		</Teleport>
 	</div>
 </template>
+
+<style>
+.child-menu {
+	display: none;
+}
+
+.menu-item:hover .child-menu {
+	display: block;
+}
+</style>
