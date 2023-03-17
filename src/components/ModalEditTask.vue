@@ -85,7 +85,7 @@ const debounceSubmit = debounce(onSubmit, 500)
 
 function onSelectDay() {
 	onSubmit()
-	showCalendar = false
+	showCalendar.value = false
 }
 
 async function onSelectLabels(labels) {
@@ -126,8 +126,8 @@ async function onSelectLabels(labels) {
 							<div>
 								<select
 									v-model="form.status"
-									@change="onSubmit"
 									class="md:text-sm w-auto rounded-md px-2 h-[32px] outline-none hover:bg-gray-100 transition cursor-pointer focus:ring focus:ring-3 focus:ring-gray-300 focus:border focus:border-gray-400"
+									@change="onSubmit"
 								>
 									<option value="active">Active</option>
 									<option value="done">Done</option>
@@ -192,8 +192,8 @@ async function onSelectLabels(labels) {
 									<FormSelectLabels
 										v-if="showSelectLabels"
 										v-model="form.labels"
-										@select="onSelectLabels"
 										class="absolute z-10 top-0"
+										@select="onSelectLabels"
 									/>
 								</div>
 							</div>

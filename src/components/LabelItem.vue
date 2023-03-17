@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { Label } from '@/types'
 
 const props = defineProps<{
@@ -7,6 +7,10 @@ const props = defineProps<{
 }>()
 
 const color = ref(props.item.color)
+watch(
+	() => props.item.color,
+	newVal => (color.value = newVal)
+)
 
 const h = computed(() => {
 	return Number(color.value.split(',')[0])
@@ -25,7 +29,8 @@ const bgColor = computed(() => {
 })
 
 const textColor = computed(() => {
-	return `hsla(${h.value},${s.value}%,${l.value - 30 < 0 ? 0 : l.value - 50}%, 1)`
+	let light = l.value - 50
+	return `hsla(${h.value},${s.value}%,${light}%, 1)`
 })
 </script>
 

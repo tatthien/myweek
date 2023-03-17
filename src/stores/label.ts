@@ -13,14 +13,16 @@ export const useLabel = defineStore({
 	},
 	actions: {
 		async fetch() {
-			const { data, error } = await supabase.from('labels').select(defaultSelect)
+			const { data, error } = await supabase
+				.from('labels')
+				.select(defaultSelect)
+				.order('created_at', { ascending: true })
 			if (error) throw error
 			this.labels = data
 		},
 		async create(payload: Label) {
 			const { data, error } = await supabase.from('labels').insert(payload).select(defaultSelect)
 			if (error) throw error
-			this.labels.push(data[0])
 		},
 		async update(id: string, payload: Label) {
 			const { error } = await supabase.from('labels').update(payload).eq('id', id).select(defaultSelect)

@@ -6,7 +6,11 @@ import { addToast } from '@/composables/toast'
 const labelStore = useLabel()
 labelStore.fetch()
 
-async function onEdit(label) {}
+const emit = defineEmits(['edit-item'])
+
+async function onEdit(label) {
+	emit('edit-item', label)
+}
 
 async function onDelete(label) {
 	try {
@@ -27,14 +31,14 @@ async function onDelete(label) {
 						<span :style="{ background, color }" class="rounded px-2 py-1 text-sm">{{ title }}</span>
 						<div class="flex gap-1">
 							<button
-								@click="onEdit(item)"
 								class="p-1 inline-flex rounded text-gray-400 hover:bg-gray-200 hover:text-gray-900 transition"
+								@click="onEdit(item)"
 							>
 								<IconPencil size="16" />
 							</button>
 							<button
-								@click="onDelete(item)"
 								class="p-1 inline-flex rounded text-gray-400 hover:bg-gray-200 hover:text-gray-900 transition"
+								@click="onDelete(item)"
 							>
 								<IconTrash size="16" />
 							</button>
