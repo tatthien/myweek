@@ -1,14 +1,18 @@
 <script lang="ts" setup>
 import Modal from '@/components/Modal.vue'
 import TaskChecklist from '@/components/TaskChecklist.vue'
-import { IconCalendar, IconPlayerPlayFilled } from '@tabler/icons-vue'
+import FormSelectLabels from '@/components/FormSelectLabels.vue'
+import LabelItem from '@/components/LabelItem.vue'
+import { IconCalendar, IconPlayerPlayFilled, IconTag } from '@tabler/icons-vue'
 import { Task } from '@/types'
 import { ref, watch, computed } from 'vue'
 import { useTasks } from '@/stores/task'
+import { useLabel } from '@/stores/label'
 import { addToast } from '@/composables/toast'
 import { format, parseISO } from 'date-fns'
 import isEqual from 'lodash/isEqual'
 import { DatePicker } from 'v-calendar'
+import { supabase } from '@/composables/supabase'
 
 const props = withDefaults(
 	defineProps<{
@@ -21,9 +25,12 @@ const props = withDefaults(
 )
 const emit = defineEmits(['close'])
 const store = useTasks()
+const labelStore = useLabel()
 const form = ref({ ...props.item })
 const openModal = ref(false)
 const isSaving = ref(false)
+const selectedLabels = ref([])
+const showSelectLabels = ref(false)
 
 watch(
 	() => props.open,
@@ -60,12 +67,23 @@ const calendarAttrs = ref([
 async function onSubmit() {
 	isSaving.value = true
 	try {
+		await supabase.from('tasks_labels').delete().eq('task_id', props.item.id)
+		await supabase.from('tasks_labels').upsert(
+			form.value.labels.map(({ id }) => {
+				return {
+					task_id: props.item.id,
+					label_id: id,
+					user_id: props.item.user_id,
+				}
+			})
+		)
 		await store.update(props.item.id, {
 			status: form.value.status,
 			date: form.value.date,
 			description: form.value.description,
 			title: form.value.title,
 		})
+		store.fetchList()
 		emit('close')
 	} catch (error: any) {
 		addToast('error', error.message)
@@ -111,7 +129,7 @@ async function onSubmit() {
 							<div v-click-outside="() => (showCalendar = false)" class="relative">
 								<button
 									type="button"
-									class="text-sm hover:bg-gray-100 transition px-2 rounded-md h-[32px] border border-transparent focus:ring focus:ring-3 focus:ring-gray-300 focus:border-gray-400"
+									class="outline-none text-sm hover:bg-gray-100 transition px-2 rounded-md h-[32px] border border-transparent focus:ring focus:ring-3 focus:ring-gray-300 focus:border-gray-400"
 									@click="showCalendar = !showCalendar"
 								>
 									{{ dateText }}
@@ -128,6 +146,37 @@ async function onSubmit() {
 										:attributes="calendarAttrs"
 										@dayclick="showCalendar = false"
 									/>
+								</div>
+							</div>
+						</div>
+						<div class="flex items-center">
+							<label class="w-[100px] md:text-sm text-gray-600 inline-flex items-center gap-2 shrink-0">
+								<IconTag size="16" />
+								Labels
+							</label>
+							<div>
+								<div v-click-outside="() => (showSelectLabels = false)" class="relative">
+									<div
+										:class="[
+											showSelectLabels ? 'opacity-0' : '',
+											'outline-none cursor-pointer flex flex-wrap gap-1 hover:bg-gray-100 rounded-md px-2 py-2 border border-transparent focus:ring focus:ring-3 focus:ring-gray-300 focus:border-gray-400',
+										]"
+										role="button"
+										tabindex="0"
+										@click="showSelectLabels = true"
+									>
+										<template v-if="form.labels.length">
+											<LabelItem v-for="label in form.labels" :key="label.id" :item="label">
+												<template #default="{ background, color, title }">
+													<span class="rounded-md px-2 py-1 text-sm" :style="{ background: background, color: color }">
+														{{ title }}
+													</span>
+												</template>
+											</LabelItem>
+										</template>
+										<span v-else class="text-sm">Select labels</span>
+									</div>
+									<FormSelectLabels v-if="showSelectLabels" v-model="form.labels" class="absolute z-10 top-0" />
 								</div>
 							</div>
 						</div>

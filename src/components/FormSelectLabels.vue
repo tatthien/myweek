@@ -1,0 +1,59 @@
+<script lang="ts" setup>
+import { ref, computed } from 'vue'
+import { useLabel } from '@/stores/label'
+import LabelItem from '@/components/LabelItem.vue'
+import { IconX } from '@tabler/icons-vue'
+import { Label } from '@/types/label'
+
+const props = defineProps<{
+	modelValue: Label[]
+}>()
+const emit = defineEmits(['update:modelValue'])
+
+const labelStore = useLabel()
+const selectedLabels = ref<Label[]>([...props.modelValue])
+
+function selectLabel(label) {
+	if (selectedLabels.value.find(e => e.id === label.id)) return
+	selectedLabels.value.push(label)
+	emit('update:modelValue', selectedLabels.value)
+}
+
+function removeLabel(label) {
+	selectedLabels.value = selectedLabels.value.filter(e => e.id !== label.id)
+	emit('update:modelValue', selectedLabels.value)
+}
+</script>
+<template>
+	<div class="border border-gray-150 bg-white rounded-md w-[300px] overflow-hidden">
+		<div class="bg-gray-100 px-2 py-2 flex flex-wrap gap-2 border-b border-gray-150">
+			<div v-for="label in selectedLabels" :key="label.id">
+				<LabelItem :item="label">
+					<template #default="{ background, color, title }">
+						<div
+							class="flex items-center rounded-md px-2 py-0.5 text-sm"
+							:style="{ background: background, color: color }"
+						>
+							<span>{{ title }}</span>
+							<button type="button" class="ml-2" @click="removeLabel(label)"><IconX size="16" /></button>
+						</div>
+					</template>
+				</LabelItem>
+			</div>
+		</div>
+		<div class="p-2 bg-white max-h-[400px] overflow-y-auto">
+			<div class="text-xs mb-2 text-gray-500 font-medium">Select a label</div>
+			<div class="space-y-1">
+				<div
+					v-for="label in labelStore.labels"
+					:key="label.id"
+					class="cursor-pointer hover:opacity-80"
+					tabindex="0"
+					@click="selectLabel(label)"
+				>
+					<LabelItem :item="label" />
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

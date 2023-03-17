@@ -1,3 +1,5 @@
+import { Label } from './label'
+
 export enum TaskStatus {
 	Active = 'active',
 	Done = 'done',
@@ -13,6 +15,7 @@ export interface Task {
 	user_id: string
 	date: string
 	checklists: ChecklistItem[]
+	labels: Label[]
 }
 
 export interface ChecklistItem {

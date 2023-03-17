@@ -3,11 +3,15 @@ import { ref, onMounted } from 'vue'
 import { format } from 'date-fns'
 import { saturday, sunday, weekdays } from '@/composables/date'
 import { useTasks } from '@/stores/task'
+import { useLabel } from '@/stores/label'
 import TaskList from '@/components/TaskList.vue'
 import AppHeader from '@/components/AppHeader.vue'
 
-const task = useTasks()
-task.fetchList()
+const taskStore = useTasks()
+const labelStore = useLabel()
+
+taskStore.fetchList()
+labelStore.fetch()
 
 const grid = ref<HTMLElement>()
 

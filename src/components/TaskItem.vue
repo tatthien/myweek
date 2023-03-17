@@ -4,6 +4,7 @@ import { Task } from '@/types'
 import ModalEditTask from '@/components/ModalEditTask.vue'
 import Dropdown from '@/components/Dropdown.vue'
 import DropdownItem from '@/components/DropdownItem.vue'
+import LabelItem from '@/components/LabelItem.vue'
 import { useTasks } from '@/stores/task'
 import {
 	IconCheckbox,
@@ -55,6 +56,15 @@ async function archive() {
 		@keypress.enter.prevent="openModal = true"
 	>
 		<div @click="openModal = true">
+			<div v-if="item.labels.length" class="flex flex-wrap gap-1 mb-2">
+				<LabelItem v-for="label in item.labels" :key="label.id" :item="label">
+					<template #default="{ background, color, title }">
+						<span class="block text-xs rounded px-1.5 py-0.5" :style="{ backgroundColor: background, color: color }">{{
+							title
+						}}</span>
+					</template>
+				</LabelItem>
+			</div>
 			<div class="flex gap-2 box-content">
 				<IconCircleCheckFilled v-if="item.status === 'done'" size="16" class="text-gray-400 shrink-0 mt-[2.5px]" />
 				<span class="block" :style="styles" :class="[item.status === 'done' ? 'text-gray-400' : '']">
