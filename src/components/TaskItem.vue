@@ -49,6 +49,7 @@ const completedText = computed(() => {
 	return `${commpletedChecklistItems.value.length}/${props.item.checklists.length}`
 })
 const showSubInfo = computed(() => props.item.description || props.item.checklists.length)
+const showSelectLabels = ref(false)
 
 const selectedLabels = ref([...props.item.labels])
 
@@ -72,6 +73,10 @@ async function onSelectLabels(labels) {
 		})
 	)
 	store.fetchList()
+}
+
+function onDropdownHide() {
+	showSelectLabels.value = false
 }
 </script>
 <template>
@@ -105,7 +110,7 @@ async function onSelectLabels(labels) {
 			</div>
 		</div>
 		<div class="hidden lg:block absolute top-2 right-2">
-			<Dropdown>
+			<Dropdown @hide="onDropdownHide">
 				<template #button>
 					<span
 						class="hidden group-hover:block border border-gray-200 shadow rounded bg-white text-gray-400 hover:text-gray-900"
@@ -126,13 +131,13 @@ async function onSelectLabels(labels) {
 					</div>
 				</DropdownItem>
 				<DropdownItem class="relative menu-item">
-					<div class="flex items-center gap-2">
+					<div @click.stop="showSelectLabels = !showSelectLabels" class="flex items-center gap-2">
 						<IconTag size="16" />
 						<span class="flex-1">Labels</span>
 						<IconChevronRight size="16" />
-						<div class="child-menu absolute top-0 left-full min-w-full" @click.stop="false">
-							<FormSelectLabels v-model="selectedLabels" @select="onSelectLabels" />
-						</div>
+					</div>
+					<div v-if="showSelectLabels" class="child-menu absolute top-0 left-full min-w-full" @click.stop="false">
+						<FormSelectLabels v-model="selectedLabels" @select="onSelectLabels" />
 					</div>
 				</DropdownItem>
 				<DropdownItem @click="archive">
@@ -149,12 +154,4 @@ async function onSelectLabels(labels) {
 	</div>
 </template>
 
-<style>
-.child-menu {
-	display: none;
-}
-
-.menu-item:hover .child-menu {
-	display: block;
-}
-</style>
+<style></style>

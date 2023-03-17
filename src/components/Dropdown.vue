@@ -3,15 +3,18 @@ import { ref, provide } from 'vue'
 const props = defineProps<{
 	text?: string
 }>()
+const emit = defineEmits(['show', 'hide'])
 
 const open = ref(false)
 
 function show() {
 	open.value = true
+	emit('show')
 }
 
 function hide() {
 	open.value = false
+	emit('hide')
 }
 
 // @TODO: make as constant
