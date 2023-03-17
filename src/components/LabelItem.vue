@@ -25,7 +25,7 @@ const bgColor = computed(() => {
 })
 
 const textColor = computed(() => {
-	return `hsla(${h.value},${s.value}%,${l.value - 50 < 0 ? 0 : l.value - 50}%, 1)`
+	return `hsla(${h.value},${s.value}%,${l.value - 30 < 0 ? 0 : l.value - 50}%, 1)`
 })
 </script>
 

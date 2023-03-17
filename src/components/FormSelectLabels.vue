@@ -8,7 +8,7 @@ import { Label } from '@/types/label'
 const props = defineProps<{
 	modelValue: Label[]
 }>()
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'select'])
 
 const labelStore = useLabel()
 const selectedLabels = ref<Label[]>([...props.modelValue])
@@ -17,11 +17,13 @@ function selectLabel(label) {
 	if (selectedLabels.value.find(e => e.id === label.id)) return
 	selectedLabels.value.push(label)
 	emit('update:modelValue', selectedLabels.value)
+	emit('select', selectedLabels.value)
 }
 
 function removeLabel(label) {
 	selectedLabels.value = selectedLabels.value.filter(e => e.id !== label.id)
 	emit('update:modelValue', selectedLabels.value)
+	emit('select', selectedLabels.value)
 }
 </script>
 <template>

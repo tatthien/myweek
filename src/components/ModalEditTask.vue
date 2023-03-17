@@ -11,6 +11,7 @@ import { useLabel } from '@/stores/label'
 import { addToast } from '@/composables/toast'
 import { format, parseISO } from 'date-fns'
 import isEqual from 'lodash/isEqual'
+import debounce from 'lodash/debounce'
 import { DatePicker } from 'v-calendar'
 import { supabase } from '@/composables/supabase'
 
@@ -67,16 +68,6 @@ const calendarAttrs = ref([
 async function onSubmit() {
 	isSaving.value = true
 	try {
-		await supabase.from('tasks_labels').delete().eq('task_id', props.item.id)
-		await supabase.from('tasks_labels').upsert(
-			form.value.labels.map(({ id }) => {
-				return {
-					task_id: props.item.id,
-					label_id: id,
-					user_id: props.item.user_id,
-				}
-			})
-		)
 		await store.update(props.item.id, {
 			status: form.value.status,
 			date: form.value.date,
@@ -84,11 +75,31 @@ async function onSubmit() {
 			title: form.value.title,
 		})
 		store.fetchList()
-		emit('close')
 	} catch (error: any) {
 		addToast('error', error.message)
 	}
 	isSaving.value = false
+}
+
+const debounceSubmit = debounce(onSubmit, 500)
+
+function onSelectDay() {
+	onSubmit()
+	showCalendar = false
+}
+
+async function onSelectLabels(labels) {
+	await supabase.from('tasks_labels').delete().eq('task_id', props.item.id)
+	await supabase.from('tasks_labels').upsert(
+		labels.map(({ id }) => {
+			return {
+				task_id: props.item.id,
+				label_id: id,
+				user_id: props.item.user_id,
+			}
+		})
+	)
+	store.fetchList()
 }
 </script>
 <template>
@@ -102,6 +113,7 @@ async function onSubmit() {
 						class="outline-none resize-none w-full text-xl font-medium h-[28px]"
 						placeholder="Type task name..."
 						@keypress.enter.prevent="onSubmit"
+						@input="debounceSubmit"
 					/>
 				</div>
 				<div>
@@ -114,6 +126,7 @@ async function onSubmit() {
 							<div>
 								<select
 									v-model="form.status"
+									@change="onSubmit"
 									class="md:text-sm w-auto rounded-md px-2 h-[32px] outline-none hover:bg-gray-100 transition cursor-pointer focus:ring focus:ring-3 focus:ring-gray-300 focus:border focus:border-gray-400"
 								>
 									<option value="active">Active</option>
@@ -144,7 +157,7 @@ async function onSubmit() {
 										is-required
 										:first-day-of-week="2"
 										:attributes="calendarAttrs"
-										@dayclick="showCalendar = false"
+										@dayclick="onSelectDay"
 									/>
 								</div>
 							</div>
@@ -176,7 +189,12 @@ async function onSubmit() {
 										</template>
 										<span v-else class="text-sm">Select labels</span>
 									</div>
-									<FormSelectLabels v-if="showSelectLabels" v-model="form.labels" class="absolute z-10 top-0" />
+									<FormSelectLabels
+										v-if="showSelectLabels"
+										v-model="form.labels"
+										@select="onSelectLabels"
+										class="absolute z-10 top-0"
+									/>
 								</div>
 							</div>
 						</div>
@@ -187,12 +205,8 @@ async function onSubmit() {
 							v-auto-resize="80"
 							class="md:text-sm px-2 py-2 overflow-y-hidden resize-none border border-transparent bg-gray-100 focus:bg-white focus:border-gray-400 transition rounded-md w-full outline-none border border-transparent focus:ring focus:ring-3 focus:ring-gray-300 focus:border-gray-400"
 							placeholder="Add a more detailed description..."
+							@input="debounceSubmit"
 						/>
-					</div>
-					<div class="flex items-center gap-2 mt-4">
-						<WButton type="submit" :loading="isSaving" size="sm" :disabled="!isFormChanged">
-							{{ submitButtonText }}
-						</WButton>
 					</div>
 					<div class="mt-6">
 						<h2 class="font-medium mb-4">Checklist</h2>

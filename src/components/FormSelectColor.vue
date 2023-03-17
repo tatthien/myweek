@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-const colors = ['111,40,78', '53,85,87', '240,100,86', '208,97,87', '43,100,52', '53,83,77']
+const colors = ['111,40,78', '120,25,65', '208,97,87', '210,50,60', '240,100,86', '53,85,87', '53,83,77', '43,100,52']
 const props = defineProps<{
 	modelValue: string
 }>()
