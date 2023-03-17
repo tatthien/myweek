@@ -104,7 +104,7 @@ async function onSelectLabels(labels) {
 				</div>
 			</div>
 		</div>
-		<div class="absolute top-2 right-2">
+		<div class="hidden lg:block absolute top-2 right-2">
 			<Dropdown>
 				<template #button>
 					<span
