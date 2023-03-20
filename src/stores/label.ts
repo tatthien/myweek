@@ -21,7 +21,7 @@ export const useLabel = defineStore({
 			this.labels = data
 		},
 		async create(payload: Label) {
-			const { data, error } = await supabase.from('labels').insert(payload).select(defaultSelect)
+			const { error } = await supabase.from('labels').insert(payload).select(defaultSelect)
 			if (error) throw error
 		},
 		async update(id: string, payload: Label) {

@@ -7,10 +7,8 @@ import { IconCalendar, IconPlayerPlayFilled, IconTag } from '@tabler/icons-vue'
 import { Task } from '@/types'
 import { ref, watch, computed } from 'vue'
 import { useTasks } from '@/stores/task'
-import { useLabel } from '@/stores/label'
 import { addToast } from '@/composables/toast'
 import { format, parseISO } from 'date-fns'
-import isEqual from 'lodash/isEqual'
 import debounce from 'lodash/debounce'
 import { DatePicker } from 'v-calendar'
 import { supabase } from '@/composables/supabase'
@@ -26,11 +24,9 @@ const props = withDefaults(
 )
 const emit = defineEmits(['close'])
 const store = useTasks()
-const labelStore = useLabel()
 const form = ref({ ...props.item })
 const openModal = ref(false)
 const isSaving = ref(false)
-const selectedLabels = ref([])
 const showSelectLabels = ref(false)
 
 watch(
@@ -46,10 +42,6 @@ watch(
 	}
 )
 
-const isFormChanged = computed(() => {
-	return !isEqual(form.value, props.item)
-})
-const submitButtonText = computed(() => (isFormChanged.value ? 'Save all changes' : 'All changes saved'))
 const dateText = computed(() => {
 	let d = form.value.date
 	if (typeof d === 'string') {

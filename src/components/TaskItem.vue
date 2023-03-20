@@ -7,7 +7,6 @@ import DropdownItem from '@/components/DropdownItem.vue'
 import LabelItem from '@/components/LabelItem.vue'
 import FormSelectLabels from '@/components/FormSelectLabels.vue'
 import { useTasks } from '@/stores/task'
-import { useLabel } from '@/stores/label'
 import { supabase } from '@/composables/supabase'
 import {
 	IconCheckbox,
@@ -22,7 +21,6 @@ import {
 } from '@tabler/icons-vue'
 
 const store = useTasks()
-const labelStore = useLabel()
 
 const props = defineProps<{
 	item: Task
@@ -133,7 +131,7 @@ function onDropdownHide() {
 					</div>
 				</DropdownItem>
 				<DropdownItem class="relative menu-item">
-					<div @click.stop="showSelectLabels = !showSelectLabels" class="flex items-center gap-2">
+					<div class="flex items-center gap-2" @click.stop="showSelectLabels = !showSelectLabels">
 						<IconTag size="16" />
 						<span class="flex-1">Labels</span>
 						<IconChevronRight size="16" />

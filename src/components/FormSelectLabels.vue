@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useLabel } from '@/stores/label'
 import LabelItem from '@/components/LabelItem.vue'
 import { IconX } from '@tabler/icons-vue'

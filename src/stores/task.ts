@@ -1,4 +1,4 @@
-import { ChecklistItem, Task } from '@/types'
+import { Task } from '@/types'
 import { defineStore } from 'pinia'
 import { supabase } from '@/composables/supabase'
 

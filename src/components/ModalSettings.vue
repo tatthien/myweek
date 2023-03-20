@@ -1,10 +1,9 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import Modal from '@/components/Modal.vue'
-import { IconUser, IconColorSwatch, IconTag } from '@tabler/icons-vue'
+import { IconUser, IconTag } from '@tabler/icons-vue'
 import SettingsMyAccount from '@/components/settings/SettingsMyAccount.vue'
 import SettingsLabels from '@/components/settings/SettingsLabels.vue'
-import SettingsAppearance from '@/components/settings/SettingsAppearance.vue'
 
 const props = withDefaults(
 	defineProps<{
