@@ -74,18 +74,24 @@ async function onSubmit() {
 			description: form.value.description,
 			title: form.value.title,
 		})
-		store.fetchList()
 	} catch (error: any) {
 		addToast('error', error.message)
 	}
 	isSaving.value = false
 }
 
-const debounceSubmit = debounce(onSubmit, 500)
+const debounceSubmit = debounce(() => {
+	onSubmit()
+}, 500)
 
 function onSelectDay() {
 	onSubmit()
 	showCalendar.value = false
+}
+
+function onClose() {
+	emit('close')
+	store.fetchList()
 }
 
 async function onSelectLabels(labels) {
@@ -99,11 +105,10 @@ async function onSelectLabels(labels) {
 			}
 		})
 	)
-	store.fetchList()
 }
 </script>
 <template>
-	<Modal v-if="openModal" title="Edit task" :open="openModal" :header="false" @close="emit('close')">
+	<Modal v-if="openModal" title="Edit task" :open="openModal" :header="false" @close="onClose">
 		<div class="p-6">
 			<form @submit.prevent="onSubmit">
 				<div class="mb-4">

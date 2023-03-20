@@ -32,19 +32,10 @@ export const useTasks = defineStore({
 		async create(task: Task) {
 			const { data, error } = await supabase.from('tasks').insert(task).select(defaultSelect)
 			if (error) throw error
-			if (data) {
-				this.tasks = [...this.tasks, data[0]]
-			}
 		},
 		async update(id: string, task: Task) {
 			const { error } = await supabase.from('tasks').update(task).eq('id', id).select(defaultSelect)
 			if (error) throw error
-			this.tasks = this.tasks.map(t => {
-				if (t.id === id) {
-					return { ...t, ...task }
-				}
-				return t
-			})
 		},
 		async upsert(tasks: any) {
 			const { error } = await supabase.from('tasks').upsert(tasks)
@@ -53,7 +44,6 @@ export const useTasks = defineStore({
 		async delete(id: string) {
 			const { error } = await supabase.from('tasks').delete().eq('id', id)
 			if (error) throw error
-			this.tasks = this.tasks.filter(t => t.id !== id)
 		},
 	},
 })
