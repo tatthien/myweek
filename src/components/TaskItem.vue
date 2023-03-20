@@ -53,12 +53,14 @@ const showSelectLabels = ref(false)
 
 const selectedLabels = ref([...props.item.labels])
 
-function changeStatus(status: string) {
-	store.update(props.item.id, { status })
+async function changeStatus(status: string) {
+	await store.update(props.item.id, { status })
+	store.fetchList()
 }
 
 async function archive() {
 	await store.delete(props.item.id)
+	store.fetchList()
 }
 
 async function onSelectLabels(labels) {

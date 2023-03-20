@@ -66,7 +66,8 @@ async function onCreateTask() {
 			user_id: user.id,
 			order: tasksCount.value + 1,
 		}
-		store.create(task)
+		const data = await store.create(task)
+		store.tasks.push(data)
 		taskName.value = ''
 	} catch (error) {
 		addToast('error', error.message)

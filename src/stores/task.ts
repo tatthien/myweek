@@ -32,6 +32,7 @@ export const useTasks = defineStore({
 		async create(task: Task) {
 			const { data, error } = await supabase.from('tasks').insert(task).select(defaultSelect)
 			if (error) throw error
+			return data[0]
 		},
 		async update(id: string, task: Task) {
 			const { error } = await supabase.from('tasks').update(task).eq('id', id).select(defaultSelect)
