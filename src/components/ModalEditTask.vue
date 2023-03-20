@@ -167,7 +167,7 @@ async function onSelectLabels(labels) {
 								</div>
 							</div>
 						</div>
-						<div class="flex items-center">
+						<div class="md:flex md:items-center">
 							<label class="w-[100px] md:text-sm text-gray-600 inline-flex items-center gap-2 shrink-0">
 								<IconTag size="16" />
 								Labels
