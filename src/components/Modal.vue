@@ -44,7 +44,7 @@ function close() {
 		role="dialog"
 		tabindex="-1"
 	>
-		<div :class="[sizeClasses, 'absolute left-1/2 top-[2rem] md:top-[5rem] -translate-x-1/2 z-10 w-full px-4 pb-8']">
+		<div :class="[sizeClasses, 'absolute left-1/2 top-[4rem] md:top-[5rem] -translate-x-1/2 z-10 w-full px-4 pb-8']">
 			<div class="bg-white shadow-lg rounded-md h-full">
 				<template v-if="header">
 					<slot name="header">
