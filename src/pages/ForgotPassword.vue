@@ -33,13 +33,9 @@ async function onSubmit() {
 			</div>
 			<div class="bg-white border border-gray-200 rounded-lg p-6">
 				<div class="mb-4">
-					<h1 class="text-xl font-medium">Get started</h1>
+					<h1 class="text-xl font-medium">Reset your password</h1>
 				</div>
 				<FormKit type="form" :actions="false" :incomplete-message="false" novalidate @submit="onSubmit">
-					<div class="flex gap-3 mb-4">
-						<FormKit v-model="form.firstName" type="text" label="First name" placeholder="John" validation="required" />
-						<FormKit v-model="form.lastName" type="text" label="Last name" placeholder="Doe" validation="required" />
-					</div>
 					<div class="mb-4">
 						<FormKit
 							v-model="form.email"
@@ -49,27 +45,8 @@ async function onSubmit() {
 							validation="required|email"
 						/>
 					</div>
-					<div class="mb-4">
-						<FormKit
-							v-model="form.password"
-							type="password"
-							label="Password"
-							name="password"
-							placeholder="••••••••"
-							validation="required|length:6"
-						/>
-					</div>
-					<div class="mb-4">
-						<FormKit
-							type="password"
-							label="Confirm password"
-							name="password_confirm"
-							placeholder="••••••••"
-							validation="required|confirm"
-						/>
-					</div>
 					<div>
-						<WButton type="submit" full :loading="isSigningUp"> Sign up </WButton>
+						<WButton type="submit" full :loading="loading"> Send reset email </WButton>
 					</div>
 				</FormKit>
 				<div class="text-center text-sm mt-8">
